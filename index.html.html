@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valorize Projetos</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --brand:#1C1C3A;--brand2:#2D2D5E;--accent:#4F6EF7;--accent2:#3B56E8;
+  --bg:#F7F8FA;--surface:#FFFFFF;--surface2:#F2F3F7;
+  --border:#E4E6ED;--border2:#CDD0DC;
+  --text:#0F0F1A;--text2:#444560;--text3:#7B7D96;--text4:#A8AAC0;
+  --green:#16A34A;--greenBg:#F0FDF4;
+  --amber:#D97706;--amberBg:#FFFBEB;
+  --red:#DC2626;--redBg:#FEF2F2;
+  --blue:#2563EB;--blueBg:#EFF6FF;
+  --indigo:#4F46E5;--indigoBg:#EEF2FF;
+  --teal:#0D9488;--tealBg:#F0FDFA;
+  --r4:4px;--r6:6px;--r8:8px;--r12:12px;
+}
+body{font-family:'Instrument Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.5}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+input,select,textarea,button{font-family:'Instrument Sans',sans-serif}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)!important;box-shadow:0 0 0 3px rgba(79,110,247,.1)!important}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* ── TOPBAR ── */
+.topbar{height:56px;background:var(--brand);display:flex;align-items:center;padding:0 24px;position:fixed;top:0;left:0;right:0;z-index:200;gap:0}
+.topbar-logo{display:flex;align-items:center;gap:10px;padding-right:32px;border-right:1px solid rgba(255,255,255,.12)}
+.topbar-logo-mark{width:28px;height:28px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center}
+.topbar-logo-text{font-size:13px;font-weight:700;color:#fff;letter-spacing:.2px}
+.topbar-nav{display:flex;align-items:center;gap:2px;padding:0 20px;flex:1}
+.tnav{height:56px;display:flex;align-items:center;padding:0 14px;font-size:13px;font-weight:500;color:rgba(255,255,255,.55);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;gap:7px}
+.tnav:hover{color:rgba(255,255,255,.85)}
+.tnav.active{color:#fff;border-bottom-color:var(--accent)}
+.tnav svg{flex-shrink:0}
+.topbar-actions{display:flex;align-items:center;gap:8px;margin-left:auto}
+
+/* ── SUBNAV ── */
+.subnav{height:44px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;gap:4px;position:fixed;top:56px;left:0;right:0;z-index:190}
+.snav{height:44px;display:flex;align-items:center;padding:0 12px;font-size:12.5px;font-weight:500;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
+.snav:hover{color:var(--text2)}
+.snav.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+/* ── MAIN ── */
+.main{margin-top:100px;padding:28px 32px;min-height:calc(100vh - 100px)}
+
+/* ── COMPONENTS ── */
+.card{background:var(--surface);border-radius:var(--r8);border:1px solid var(--border);margin-bottom:16px}
+.card-pad{padding:20px 24px}
+.card-hd{padding:16px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.card-hd-title{font-size:14px;font-weight:600;color:var(--text)}
+.card-ft{padding:12px 24px;border-top:1px solid var(--border);background:var(--bg);border-radius:0 0 var(--r8) var(--r8)}
+
+.ph{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px;flex-wrap:wrap;gap:12px}
+.pt{font-size:20px;font-weight:700;color:var(--text);letter-spacing:-.3px}
+.ps{font-size:13px;color:var(--text3);margin-top:2px}
+
+.btn{height:34px;padding:0 14px;border-radius:var(--r6);border:none;font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:6px;cursor:pointer;transition:all .12s;white-space:nowrap;letter-spacing:.1px}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent2)}
+.btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border2)}
+.btn-ghost:hover{background:var(--surface2);border-color:var(--border2)}
+.btn-danger{background:var(--red);color:#fff}
+.btn-danger:hover{opacity:.88}
+.btn-sm{height:28px;padding:0 10px;font-size:12px}
+.btn-icon{width:28px;height:28px;padding:0;justify-content:center}
+
+.inp{height:34px;padding:0 10px;border-radius:var(--r6);border:1px solid var(--border2);font-size:13px;width:100%;color:var(--text);background:var(--surface);transition:.12s}
+.inp:hover{border-color:var(--border2)}
+.ta{padding:8px 10px;border-radius:var(--r6);border:1px solid var(--border2);font-size:13px;width:100%;color:var(--text);background:var(--surface);resize:vertical;min-height:72px;line-height:1.5}
+.lbl{font-size:11px;font-weight:600;color:var(--text3);margin-bottom:5px;display:block;letter-spacing:.3px;text-transform:uppercase}
+.sel{height:34px;padding:0 10px;border-radius:var(--r6);border:1px solid var(--border2);font-size:13px;width:100%;background:var(--surface);color:var(--text);cursor:pointer}
+
+.frow{display:grid;gap:14px;margin-bottom:14px}
+.f1{grid-template-columns:1fr}
+.f2{grid-template-columns:1fr 1fr}
+.f3{grid-template-columns:1fr 1fr 1fr}
+.f4{grid-template-columns:1fr 1fr 1fr 1fr}
+
+.sec-hd{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;padding-bottom:10px;margin-bottom:14px;border-bottom:1px solid var(--border)}
+
+table{border-collapse:collapse;width:100%}
+thead th{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.4px;padding:10px 14px;background:var(--surface2);text-align:left;white-space:nowrap;border-bottom:1px solid var(--border)}
+thead th:first-child{border-radius:var(--r6) 0 0 0}
+thead th:last-child{border-radius:0 var(--r6) 0 0}
+tbody td{padding:11px 14px;border-bottom:1px solid var(--border);font-size:13px;color:var(--text2);vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:var(--surface2)}
+.ov{overflow-x:auto;border-radius:0 0 var(--r8) var(--r8)}
+
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:.2px;white-space:nowrap}
+.bg{background:var(--greenBg);color:var(--green)}
+.by{background:var(--amberBg);color:var(--amber)}
+.br{background:var(--redBg);color:var(--red)}
+.bb{background:var(--blueBg);color:var(--blue)}
+.bi{background:var(--indigoBg);color:var(--indigo)}
+.bt{background:var(--tealBg);color:var(--teal)}
+.bn{background:var(--surface2);color:var(--text3)}
+
+.krow{display:grid;gap:14px;margin-bottom:22px}
+.krow-5{grid-template-columns:repeat(5,1fr)}
+.krow-4{grid-template-columns:repeat(4,1fr)}
+.kcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r8);padding:18px 20px}
+.kcard-v{font-size:30px;font-weight:700;color:var(--text);letter-spacing:-.5px;margin-top:6px;line-height:1}
+.kcard-l{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.5px}
+.kcard-accent{border-top:3px solid}
+
+.modal-ov{position:fixed;inset:0;background:rgba(15,15,26,.5);display:flex;align-items:flex-start;justify-content:center;z-index:500;padding:48px 16px;overflow-y:auto;backdrop-filter:blur(4px)}
+.modal-box{background:var(--surface);border-radius:var(--r12);width:100%;max-width:960px;box-shadow:0 20px 60px rgba(0,0,0,.18),0 0 0 1px rgba(0,0,0,.06)}
+.modal-hd{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.modal-hd-title{font-size:15px;font-weight:700;color:var(--text)}
+.modal-body{padding:24px}
+.modal-ft{padding:16px 24px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end;background:var(--bg);border-radius:0 0 var(--r12) var(--r12)}
+
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.sw{position:relative}
+.sw .inp{padding-left:32px}
+.sw-ic{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--text4);pointer-events:none;display:flex}
+
+.toast{position:fixed;bottom:20px;right:20px;z-index:999;background:var(--surface);border-radius:var(--r8);padding:12px 16px;box-shadow:0 8px 24px rgba(0,0,0,.12),0 0 0 1px var(--border);display:flex;align-items:center;gap:10px;max-width:360px;font-size:13px;font-weight:500;color:var(--text)}
+
+.tag-pat{display:inline-flex;align-items:center;background:var(--indigoBg);color:var(--indigo);border-radius:4px;font-size:11px;font-weight:600;padding:2px 7px;margin:1px}
+
+.prazo-r{display:inline-flex;align-items:center;background:var(--redBg);color:var(--red);border-radius:4px;font-size:11px;font-weight:600;padding:2px 8px}
+.prazo-y{display:inline-flex;align-items:center;background:var(--amberBg);color:var(--amber);border-radius:4px;font-size:11px;font-weight:600;padding:2px 8px}
+.prazo-g{display:inline-flex;align-items:center;background:var(--greenBg);color:var(--green);border-radius:4px;font-size:11px;font-weight:600;padding:2px 8px}
+
+.counter-strip{background:var(--surface);border:1px solid var(--border);border-radius:var(--r8);padding:16px 24px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+.counter-num{font-size:32px;font-weight:700;color:var(--accent);min-width:56px;text-align:center;border:2px solid var(--border);border-radius:var(--r6);padding:4px 12px;line-height:1.2}
+
+.loading{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999}
+.load-bar{width:180px;height:2px;background:var(--border);border-radius:1px;margin-top:20px;overflow:hidden}
+.load-fill{height:100%;background:var(--accent);animation:ld 1.4s ease-in-out infinite}
+@keyframes ld{0%{width:0;margin-left:0}50%{width:60%;margin-left:20%}100%{width:0;margin-left:180px}}
+
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 24px;color:var(--text4)}
+.empty-state svg{margin-bottom:12px;opacity:.4}
+.empty-state p{font-size:13px}
+
+.section-divider{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;padding:20px 0 10px;border-bottom:1px solid var(--border);margin-bottom:16px}
+
+.pat-card{border:1px solid var(--border);border-radius:var(--r6);padding:12px 14px;margin-bottom:8px;background:var(--surface2)}
+
+.alert-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+.alert-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r8);padding:16px 20px;border-left:3px solid}
+.alert-card-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.alert-card-count{font-size:28px;font-weight:700;margin-bottom:6px}
+.chart-wrap{height:220px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const SB_URL="https://toyebkdzayhughixamyt.supabase.co";
+const SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRveWVia2R6YXlodWdoaXhhbXl0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzMDY1NzcsImV4cCI6MjA5MTg4MjU3N30.hBEOLMUFTmnPriGuodG-2eQkgCJK1jfOnIqJxhJhFO0";
+const sb=supabase.createClient(SB_URL,SB_KEY);
+
+/* ── OPÇÕES ── */
+const MESES=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+const LEIS=["Lei de Incentivo ao Esporte","Lei de Incentivo à Cultura","Lei Audiovisual","Lei Rouanet"];
+const STATUS_PROJ=["Em captação","Em análise","Vai executar","Enviado para análise técnica","Aguardando assinatura","Em execução","Em execução - prorrogação","Encerrado","Expirado","Negado","Sem evolução","Executado"];
+const TIPO_INC=["Patrocínio","Doação"];
+const TIPO_CONTR=["Contrato","Termo de Patrocínio","Apresentação","Não foi acordado"];
+const TIPO_MON=["Modelo Valorize","Modelo Próprio","Sistema ou Plataforma","Modelo Misto"];
+const ST_CP=["Aguardando","Realizada","Não realizada"];
+const ST_REL=["Previsto","Enviado","Em atraso","Não enviado"];
+const ST_REUN=["Agendar","Agendada","Realizada","Não realizada"];
+const EQUIPES=["Camila e Luinara","Bruna e Hallana","Leo e Rayssa"];
+const ST_ATO=["Iniciou","Trabalhando","Enviado","Em Diligência","Diligência Respondida","Aguardando Assinatura"];
+const ST_PLANO=["Trabalhando","Enviado ao Ministério","Enviado os Patrocinadores","100% Aprovado"];
+const ST_ELAB=["Executado","Em Execução","Vai Executar","Em Captação","Em Análise","Expirado","Negado","Sem Evolução"];
+const MANIFESTACOES=["Educacional","Participação","Rendimento","Artes Cênicas","Música","Dança","Artes Visuais","Humanidades","Audiovisual"];
+const ESTADOS=["AC","AL","AM","AP","BA","CE","DF","ES","GO","MA","MG","MS","MT","PA","PB","PE","PI","PR","RJ","RN","RO","RR","RS","SC","SE","SP","TO"];
+
+/* ── STATE ── */
+let S={
+  tab:"rc", sub:"rc_dashboard", modal:null, toast:null, loading:true,
+  projetos:[], proponentes:[], patrocinadores:[], patVinculos:[],
+  relatorios:[], contrapartidas:[], reunioes:[], pc:[], elaboracao:[],
+  relMes:new Date().getMonth(), relAno:new Date().getFullYear(),
+  ctMes:new Date().getMonth(), ctAno:new Date().getFullYear(),
+  reunMes:new Date().getMonth(), reunAno:new Date().getFullYear(),
+  rcSearch:"", rcEquipe:"", elSearch:"", elStatus:"", elLei:"",
+  pcSearch:"", projSearch:"", projTab:"projetos",
+  chartInst:null,
+};
+
+/* ── HELPERS ── */
+const esc=s=>String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const fmtD=s=>{if(!s)return"—";try{const d=new Date(s.includes("T")?s:s+"T12:00:00");if(isNaN(d))return"—";return`${String(d.getDate()).padStart(2,"0")}/${String(d.getMonth()+1).padStart(2,"0")}/${d.getFullYear()}`}catch{return"—"}};
+const fmtBRL=v=>{if(v==null||v==="")return"—";return"R$\u00a0"+Number(v).toLocaleString("pt-BR",{minimumFractionDigits:2})};
+const dias=p=>{const d=p.data_prorrogacao||p.data_fim;if(!d)return Infinity;return Math.ceil((new Date(d+"T12:00:00")-new Date())/864e5)};
+const getProp=id=>{const p=S.proponentes.find(x=>x.id===id);return p?p.razao_social:"—"};
+const getProjObj=id=>S.projetos.find(x=>x.id===id);
+const getProj=id=>{const p=getProjObj(id);return p?p.nome:"—"};
+const vinculosDeProjeto=pid=>S.patVinculos.filter(x=>x.projeto_id===pid);
+const patEmpresa=v=>(v.patrocinadores&&v.patrocinadores.empresa)||"—";
+const inMesAno=(s,m,a)=>{if(!s)return false;const d=new Date(s.includes("T")?s:s+"T12:00:00");return d.getMonth()===m&&d.getFullYear()===a};
+const stMap={"Em execução":"bg","Em execução - prorrogação":"by","Encerrado":"br","Em captação":"bb","Em análise":"by","Vai executar":"bt","Aguardando assinatura":"bi","Expirado":"br","Negado":"br","Executado":"bg","Iniciou":"bg","Enviado":"bb","Em Diligência":"by","Diligência Respondida":"bt","Trabalhando":"bn","Sem Evolução":"bn","100% Aprovado":"bg","Enviado ao Ministério":"bb","Enviado os Patrocinadores":"bt","Aguardando":"by","Realizada":"bg","Não realizada":"br","Previsto":"bb","Em atraso":"br","Não enviado":"br","Agendar":"by","Agendada":"bb","OK":"bg","Pendente":"by","Em Captação":"bb","Em Análise":"by","Vai Executar":"bt","Expirado":"br","Negado":"br"};
+const bdg=(t,c)=>`<span class="badge ${c||stMap[t]||"bn"}">${esc(t||"—")}</span>`;
+
+/* ── ICONS ── */
+const I={
+  rc:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>',
+  proj:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>',
+  pc:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',
+  elab:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>',
+  plus:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>',
+  edit:'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.83 2.83 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>',
+  trash:'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6M10 11v6M14 11v6M9 6V4h6v2"/></svg>',
+  x:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
+  save:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>',
+  srch:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',
+  eye:'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>',
+  vp:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
+};
+
+/* ── SUPABASE ── */
+async function loadAll(){
+  S.loading=true;render();
+  const q=async(t,sel="*",order=null)=>{let q=sb.from(t).select(sel);if(order)q=q.order(order);const r=await q;return r.data||[];};
+  try{
+    const [p,pr,pat,pv,rel,ct,re,pc,el]=await Promise.all([
+      q("projetos","*","nome"),
+      q("proponentes","*","razao_social"),
+      q("patrocinadores","*","empresa"),
+      q("projeto_patrocinadores","*,patrocinadores(id,empresa,nome_contato,email,telefone,cnpj)"),
+      q("relatorios_acompanhamento","*","data_prevista_envio"),
+      q("contrapartidas"),
+      q("reunioes_encerramento"),
+      q("prestacao_contas"),
+      q("elaboracao_projetos"),
+    ]);
+    Object.assign(S,{projetos:p,proponentes:pr,patrocinadores:pat,patVinculos:pv,relatorios:rel,contrapartidas:ct,reunioes:re,pc,elaboracao:el,loading:false});
+  }catch(e){S.loading=false;toast("Erro ao conectar: "+e.message,"err");}
+  render();
+}
+
+async function upsert(table,data){
+  const{id,...f}=data;
+  const res=id?await sb.from(table).update(f).eq("id",id).select().single()
+               :await sb.from(table).insert(f).select().single();
+  if(res.error)throw res.error;
+  return res.data;
+}
+async function delRow(table,id){const r=await sb.from(table).delete().eq("id",id);if(r.error)throw r.error;}
+
+/* ── RENDER ENGINE ── */
+function toast(msg,type="ok"){S.toast={msg,type};render();setTimeout(()=>{S.toast=null;render();},3400);}
+function nav(tab,sub){S.tab=tab;S.sub=sub||tab;S.modal=null;render();}
+function openModal(type,data={}){S.modal={type,data};render();}
+function closeModal(){S.modal=null;render();}
+
+function render(){
+  const app=document.getElementById("app");
+  if(S.loading){app.innerHTML=`<div class="loading"><div style="display:flex;align-items:center;gap:10px;margin-bottom:4px"><div style="width:24px;height:24px;background:var(--accent);border-radius:5px;display:flex;align-items:center;justify-content:center">${I.vp}</div><span style="font-size:15px;font-weight:700;color:var(--text)">Valorize Projetos</span></div><div style="font-size:12px;color:var(--text3)">Conectando ao banco de dados...</div><div class="load-bar"><div class="load-fill"></div></div></div>`;return;}
+  app.innerHTML=topbar()+subnav()+`<div class="main">${page()}</div>`+modalHtml()+toastHtml();
+  bindAll();
+  if(S.sub==="rc_dashboard")setTimeout(initChart,50);
+}
+
+/* ── TOPBAR ── */
+function topbar(){
+  const tabs=[
+    {id:"rc",label:"Relacionamento",icon:I.rc},
+    {id:"projetos",label:"Projetos",icon:I.proj},
+    {id:"pc",label:"Prestação de Contas",icon:I.pc},
+    {id:"elab",label:"Elaboração",icon:I.elab},
+  ];
+  return`<div class="topbar">
+    <div class="topbar-logo">
+      <div class="topbar-logo-mark">${I.vp}</div>
+      <span class="topbar-logo-text">Valorize</span>
+    </div>
+    <nav class="topbar-nav">
+      ${tabs.map(t=>`<div class="tnav${S.tab===t.id?" active":""}" data-nav="${t.id}">${t.icon}<span>${t.label}</span></div>`).join("")}
+    </nav>
+  </div>`;
+}
+
+/* ── SUBNAV ── */
+const subnavMap={
+  rc:    [{id:"rc_dashboard",l:"Dashboard"},{id:"rc_relatorios",l:"Relatórios de Acompanhamento"},{id:"rc_contrapartidas",l:"Relatórios de Contrapartidas"},{id:"rc_reunioes",l:"Reuniões de Encerramento"}],
+  projetos:[{id:"proj_lista",l:"Projetos"},{id:"proj_proponentes",l:"Proponentes"},{id:"proj_patrocinadores",l:"Patrocinadores"}],
+  pc:    [{id:"pc_main",l:"Registros"},{id:"pc_prazos",l:"Prazos em Execução"}],
+  elab:  [{id:"elab_main",l:"Projetos"}],
+};
+function subnav(){
+  const items=subnavMap[S.tab]||[];
+  return`<div class="subnav">${items.map(i=>`<div class="snav${S.sub===i.id?" active":""}" data-sub="${i.id}">${i.l}</div>`).join("")}</div>`;
+}
+
+/* ── PAGE ROUTER ── */
+function page(){
+  if(S.sub==="rc_dashboard")     return pgRcDash();
+  if(S.sub==="rc_relatorios")    return pgRcRel();
+  if(S.sub==="rc_contrapartidas")return pgRcCt();
+  if(S.sub==="rc_reunioes")      return pgRcReun();
+  if(S.sub==="proj_lista")       return pgProjLista();
+  if(S.sub==="proj_proponentes") return pgProponentes();
+  if(S.sub==="proj_patrocinadores") return pgPatrocinadores();
+  if(S.sub==="pc_main")          return pgPC();
+  if(S.sub==="pc_prazos")        return pgPrazos();
+  if(S.sub==="elab_main")        return pgElab();
+  return pgRcDash();
+}
+
+/* ═══════════════════════════════════════
+   RC — DASHBOARD
+═══════════════════════════════════════ */
+function pgRcDash(){
+  const mes=S.relMes,ano=S.relAno;
+  let projs=S.projetos;
+  if(S.rcEquipe) projs=projs.filter(p=>p.equipe_pc===S.rcEquipe);
+  const total=projs.length;
+  const emExec=projs.filter(p=>p.status==="Em execução").length;
+  const prorr=projs.filter(p=>p.status==="Em execução - prorrogação").length;
+  const enc=projs.filter(p=>p.status==="Encerrado").length;
+  const v30=projs.filter(p=>{const d=dias(p);return d>=0&&d<=30&&!["Encerrado","Expirado","Negado"].includes(p.status)}).length;
+  const relsMes=S.relatorios.filter(r=>inMesAno(r.data_prevista_envio,mes,ano));
+  const ctsMes=S.contrapartidas.filter(c=>inMesAno(c.data_prevista,mes,ano));
+  const reunMes=S.reunioes.filter(r=>inMesAno(r.data_agendamento,mes,ano));
+  const anos=[...new Set(S.projetos.map(p=>p.ano_inicio).filter(Boolean).concat([new Date().getFullYear()]))].sort((a,b)=>b-a);
+
+  return`
+  <div class="ph">
+    <div><div class="pt">Dashboard</div><div class="ps">Visão geral — ${MESES[mes]} ${ano}</div></div>
+    <div class="filters">
+      <select class="sel" data-bind="rcEquipe" style="width:190px"><option value="">Todas as equipes</option>${EQUIPES.map(e=>`<option value="${e}"${S.rcEquipe===e?" selected":""}>${e}</option>`).join("")}</select>
+      <select class="sel" data-bind="relMes" data-numtype="int" style="width:140px">${MESES.map((m,i)=>`<option value="${i}"${mes===i?" selected":""}>${m}</option>`).join("")}</select>
+      <select class="sel" data-bind="relAno" data-numtype="int" style="width:100px">${anos.map(a=>`<option value="${a}"${ano===a?" selected":""}>${a}</option>`).join("")}</select>
+    </div>
+  </div>
+
+  <div class="krow krow-5">
+    ${kcard("Total de Projetos",total,"var(--accent)")}
+    ${kcard("Em Execução",emExec,"var(--green)")}
+    ${kcard("Em Prorrogação",prorr,"var(--amber)")}
+    ${kcard("Vencendo em 30d",v30,"var(--red)")}
+    ${kcard("Encerrados",enc,"var(--text3)")}
+  </div>
+
+  <div class="alert-grid">
+    ${alertCard("Relatórios de Acompanhamento",relsMes.length,"var(--accent)","rc_relatorios")}
+    ${alertCard("Relatórios de Contrapartidas",ctsMes.length,"var(--teal)","rc_contrapartidas")}
+    ${alertCard("Reuniões de Encerramento",reunMes.length,"var(--indigo)","rc_reunioes")}
+  </div>
+
+  <div class="card">
+    <div class="card-hd"><span class="card-hd-title">Cronograma de Encerramentos</span></div>
+    <div class="card-pad"><div class="chart-wrap"><canvas id="encChart"></canvas></div></div>
+  </div>`;
+}
+
+function kcard(label,value,color){
+  return`<div class="kcard kcard-accent" style="border-top-color:${color}">
+    <div class="kcard-l">${label}</div>
+    <div class="kcard-v" style="color:${color}">${value}</div>
+  </div>`;
+}
+
+function alertCard(title,count,color,sub){
+  return`<div class="alert-card" style="border-left-color:${color};cursor:pointer" data-sub="${sub}">
+    <div class="alert-card-title" style="color:${color}">${title}</div>
+    <div class="alert-card-count" style="color:${color}">${count}</div>
+    <div style="font-size:11px;color:var(--text3)">previstos em ${MESES[S.relMes]}</div>
+  </div>`;
+}
+
+function initChart(){
+  const canvas=document.getElementById("encChart");
+  if(!canvas)return;
+  if(S.chartInst){S.chartInst.destroy();S.chartInst=null;}
+  const now=new Date();const labels=[],data=[];
+  for(let i=-6;i<=18;i++){
+    const d=new Date(now.getFullYear(),now.getMonth()+i,1);
+    labels.push(["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"][d.getMonth()]+"/"+String(d.getFullYear()).slice(-2));
+    data.push(S.projetos.filter(p=>{const e=p.data_prorrogacao||p.data_fim;if(!e)return false;const ed=new Date(e+"T12:00:00");return ed.getMonth()===d.getMonth()&&ed.getFullYear()===d.getFullYear();}).length);
+  }
+  S.chartInst=new Chart(canvas,{type:"line",data:{labels,datasets:[{label:"Encerramentos",data,fill:true,backgroundColor:"rgba(79,110,247,.06)",borderColor:"#4F6EF7",borderWidth:2,pointBackgroundColor:"#4F6EF7",pointRadius:3,tension:.4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:1,color:"#7B7D96",font:{family:"Instrument Sans",size:11}},grid:{color:"rgba(0,0,0,.04)"}},x:{ticks:{color:"#7B7D96",font:{family:"Instrument Sans",size:11},maxRotation:45},grid:{display:false}}}}});
+}
+
+/* ═══════════════════════════════════════
+   RC — RELATÓRIOS
+═══════════════════════════════════════ */
+function pgRcRel(){
+  const mes=S.relMes,ano=S.relAno;
+  const rMes=S.relatorios.filter(r=>inMesAno(r.data_prevista_envio,mes,ano));
+  const rAtras=S.relatorios.filter(r=>r.status==="Em atraso");
+  const anos=[2024,2025,2026,2027,2028];
+  return`
+  <div class="ph">
+    <div><div class="pt">Relatórios de Acompanhamento</div></div>
+    <div class="filters">
+      <select class="sel" data-bind="relMes" data-numtype="int" style="width:140px">${MESES.map((m,i)=>`<option value="${i}"${mes===i?" selected":""}>${m}</option>`).join("")}</select>
+      <select class="sel" data-bind="relAno" data-numtype="int" style="width:100px">${anos.map(a=>`<option value="${a}"${ano===a?" selected":""}>${a}</option>`).join("")}</select>
+      <button class="btn btn-primary" data-action="novo-relatorio">${I.plus} Novo Relatório</button>
+    </div>
+  </div>
+
+  <div class="counter-strip">
+    <span style="font-size:13px;color:var(--text2)">Relatórios de Acompanhamento previstos para <strong>${MESES[mes]} ${ano}</strong></span>
+    <span class="counter-num">${rMes.length}</span>
+  </div>
+
+  <div class="card">
+    <div class="card-hd"><span class="card-hd-title">Previstos para ${MESES[mes]}</span></div>
+    ${rMes.length===0?emptyState("Nenhum relatório previsto para este mês"):`
+    <div class="ov"><table>
+      <thead><tr><th>Proponente</th><th>Nome do projeto</th><th>Nº</th><th>Patrocinadores</th><th>Data prevista de envio</th><th>Meses de referência</th><th>Data de envio</th><th>Status</th><th>Observações</th><th></th></tr></thead>
+      <tbody>${rMes.map(r=>{
+        const proj=getProjObj(r.projeto_id);
+        const pats=proj?vinculosDeProjeto(proj.id).map(v=>`<span class="tag-pat">${esc(patEmpresa(v))}</span>`).join(""):"—";
+        return`<tr>
+          <td style="font-size:12px">${esc(proj?getProp(proj.proponente_id):"—")}</td>
+          <td style="font-weight:600">${esc(proj?proj.nome:"—")}</td>
+          <td style="text-align:center">${r.numero_relatorio||"—"}</td>
+          <td>${pats||"—"}</td>
+          <td>${fmtD(r.data_prevista_envio)}</td>
+          <td style="font-size:12px">${esc(r.mes_referencia||"—")}</td>
+          <td>${fmtD(r.data_envio)}</td>
+          <td>${bdg(r.status||"Previsto")}</td>
+          <td style="font-size:12px;max-width:160px;color:var(--text3)">${esc(r.observacoes||"—")}</td>
+          <td><div style="display:flex;gap:4px">
+            <button class="btn btn-ghost btn-sm btn-icon" data-action="edit-relatorio" data-id="${r.id}">${I.edit}</button>
+            <button class="btn btn-ghost btn-sm btn-icon" style="color:var(--red)" data-action="del-relatorio" data-id="${r.id}">${I.trash}</button>
+          </div></td>
+        </tr>`;
+      }).join("")}</tbody>
+    </table></div>`}
+  </div>
+
+  ${rAtras.length>0?`
+  <div class="counter-strip" style="border-color:var(--red)">
+    <span style="font-size:13px;color:var(--red);font-weight:600">Relatórios em atraso</span>
+    <span class="counter-num" style="color:var(--red);border-color:var(--redBg)">${rAtras.length}</span>
+  </div>
+  <div class="card">
+    <div class="ov"><table>
+      <thead><tr><th>Proponente</th><th>Projeto</th><th>Nº</th><th>Patrocinadores</th><th>Data prevista</th><th>Data de envio</th><th>Observações</th><th></th></tr></thead>
+      <tbody>${rAtras.map(r=>{const proj=getProjObj(r.projeto_id);const pats=proj?vinculosDeProjeto(proj.id).map(v=>`<span class="tag-pat">${esc(patEmpresa(v))}</span>`).join(""):"—";return`<tr><td style="font-size:12px">${esc(proj?getProp(proj.proponente_id):"—")}</td><td style="font-weight:600">${esc(proj?proj.nome:"—")}</td><td style="text-align:center">${r.numero_relatorio||"—"}</td><td>${pats||"—"}</td><td>${fmtD(r.data_prevista_envio)}</td><td>${fmtD(r.data_envio)}</td><td style="font-size:12px">${esc(r.observacoes||"—")}</td><td><button class="btn btn-ghost btn-sm btn-icon" data-action="edit-relatorio" data-id="${r.id}">${I.edit}</button></td></tr>`;}).join("")}</tbody>
+    </table></div>
+  </div>`:""}`;
+}
+
+/* ═══════════════════════════════════════
+   RC — CONTRAPARTIDAS
+═══════════════════════════════════════ */
+function pgRcCt(){
+  const mes=S.ctMes,ano=S.ctAno;
+  const ctMes=S.contrapartidas.filter(c=>inMesAno(c.data_prevista,mes,ano));
+  const anos=[2024,2025,2026,2027,2028];
+  return`
+  <div class="ph">
+    <div><div class="pt">Relatórios de Contrapartidas</div></div>
+    <div class="filters">
+      <select class="sel" data-bind="ctMes" data-numtype="int" style="width:140px">${MESES.map((m,i)=>`<option value="${i}"${mes===i?" selected":""}>${m}</option>`).join("")}</select>
+      <select class="sel" data-bind="ctAno" data-numtype="int" style="width:100px">${anos.map(a=>`<option value="${a}"${ano===a?" selected":""}>${a}</option>`).join("")}</select>
+      <button class="btn btn-primary" data-action="nova-contrapartida">${I.plus} Nova Contrapartida</button>
+    </div>
+  </div>
+  <div class="counter-strip">
+    <span style="font-size:13px;color:var(--text2)">Projetos com contrapartidas previstas para <strong>${MESES[mes]} ${ano}</strong></span>
+    <span class="counter-num">${ctMes.length}</span>
+  </div>
+  <div class="card">
+    ${ctMes.length===0?emptyState("Nenhuma contrapartida prevista para este mês"):`
+    <div class="ov"><table>
+      <thead><tr><th>Proponente</th><th>Nome do projeto</th><th>Data início</th><th>Data fim</th><th>Data prorrogação</th><th>Patrocinadores</th><th>Status</th><th>Link do relatório</th><th></th></tr></thead>
+      <tbody>${ctMes.map(c=>{
+        const proj=getProjObj(c.projeto_id);
+        const pats=proj?vinculosDeProjeto(proj.id).map(v=>`<span class="tag-pat">${esc(patEmpresa(v))}</span>`).join(""):"—";
+        // patrocinador vinculado a esta contrapartida
+        const patCt=c.patrocinador_vinculo_id?S.patVinculos.find(v=>v.id===c.patrocinador_vinculo_id):null;
+        return`<tr>
+          <td style="font-size:12px">${esc(proj?getProp(proj.proponente_id):"—")}</td>
+          <td style="font-weight:600">${esc(proj?proj.nome:"—")}</td>
+          <td style="font-size:12px">${proj?fmtD(proj.data_inicio):"—"}</td>
+          <td style="font-size:12px">${proj?fmtD(proj.data_fim):"—"}</td>
+          <td style="font-size:12px">${proj?fmtD(proj.data_prorrogacao):"—"}</td>
+          <td>${patCt?`<span class="tag-pat">${esc(patEmpresa(patCt))}</span>`:pats||"—"}</td>
+          <td>${bdg(c.status||"Aguardando")}</td>
+          <td style="font-size:12px">${c.link_relatorio?`<a href="${esc(c.link_relatorio)}" target="_blank">Abrir</a>`:"—"}</td>
+          <td><div style="display:flex;gap:4px">
+            <button class="btn btn-ghost btn-sm btn-icon" data-action="edit-contrapartida" data-id="${c.id}">${I.edit}</button>
+            <button class="btn btn-ghost btn-sm btn-icon" style="color:var(--red)" data-action="del-contrapartida" data-id="${c.id}">${I.trash}</button>
+          </div></td>
+        </tr>`;
+      }).join("")}</tbody>
+    </table></div>`}
+  </div>`;
+}
+
+/* ═══════════════════════════════════════
+   RC — REUNIÕES
+═══════════════════════════════════════ */
+function pgRcReun(){
+  const mes=S.reunMes,ano=S.reunAno;
+  const reun=S.reunioes.filter(r=>inMesAno(r.data_agendamento,mes,ano));
+  const anos=[2024,2025,2026,2027,2028];
+  return`
+  <div class="ph">
+    <div><div class="pt">Reuniões de Encerramento de Ciclo</div></div>
+    <div class="filters">
+      <select class="sel" data-bind="reunMes" data-numtype="int" style="width:140px">${MESES.map((m,i)=>`<option value="${i}"${mes===i?" selected":""}>${m}</option>`).join("")}</select>
+      <select class="sel" data-bind="reunAno" data-numtype="int" style="width:100px">${anos.map(a=>`<option value="${a}"${ano===a?" selected":""}>${a}</option>`).join("")}</select>
+      <button class="btn btn-primary" data-action="nova-reuniao">${I.plus} Nova Reunião</button>
+    </div>
+  </div>
+  <div class="counter-strip">
+    <span style="font-size:13px;color:var(--text2)">Reuniões previstas para <strong>${MESES[mes]} ${ano}</strong></span>
+    <span class="counter-num">${reun.length}</span>
+  </div>
+  <div class="card">
+    ${reun.length===0?emptyState("Nenhuma reunião prevista para este mês"):`
+    <div class="ov"><table>
+      <thead><tr><th>Proponente</th><th>Projeto</th><th>Início</th><th>Fim</th><th>Prorrogação</th><th>Patrocinadores</th><th>Nome do contato</th><th>Contato</th><th>Status</th><th>Agendamento</th><th></th></tr></thead>
+      <tbody>${reun.map(r=>{
+        const proj=getProjObj(r.projeto_id);
+        const pats=proj?vinculosDeProjeto(proj.id).map(v=>`<span class="tag-pat">${esc(patEmpresa(v))}</span>`).join(""):"—";
+        const dh=r.data_agendamento?fmtD(r.data_agendamento.split("T")[0])+(r.data_agendamento.includes("T")?" "+r.data_agendamento.split("T")[1].slice(0,5):""):"—";
+        return`<tr>
+          <td style="font-size:12px">${esc(proj?getProp(proj.proponente_id):"—")}</td>
+          <td style="font-weight:600">${esc(proj?proj.nome:"—")}</td>
+          <td style="font-size:12px">${proj?fmtD(proj.data_inicio):"—"}</td>
+          <td style="font-size:12px">${proj?fmtD(proj.data_fim):"—"}</td>
+          <td style="font-size:12px">${proj?fmtD(proj.data_prorrogacao):"—"}</td>
+          <td>${pats||"—"}</td>
+          <td style="font-size:12px">${esc(r.nome_contato||"—")}</td>
+          <td style="font-size:12px">${esc(r.contato||"—")}</td>
+          <td>${bdg(r.status||"Agendar")}</td>
+          <td style="font-size:12px;white-space:nowrap">${dh}</td>
+          <td><div style="display:flex;gap:4px">
+            <button class="btn btn-ghost btn-sm btn-icon" data-action="edit-reuniao" data-id="${r.id}">${I.edit}</button>
+            <button class="btn btn-ghost btn-sm btn-icon" style="color:var(--red)" data-action="del-reuniao" data-id="${r.id}">${I.trash}</button>
+          </div></td>
+        </tr>`;
+      }).join("")}</tbody>
+    </table></div>`}
+  </div>`;
+}
+
+/* ═══════════════════════════════════════
+   PROJETOS — LISTA
+═══════════════════════════════════════ */
+function pgProjLista(){
+  let projs=S.projetos;
+  if(S.projSearch){const s=S.projSearch.toLowerCase();projs=projs.filter(p=>p.nome.toLowerCase().includes(s)||getProp(p.proponente_id).toLowerCase().includes(s));}
+  if(S.rcEquipe) projs=projs.filter(p=>p.equipe_pc===S.rcEquipe);
+  return`
+  <div class="ph">
+    <div><div class="pt">Projetos</div><div class="ps">${projs.length} projeto${projs.length!==1?"s":""} encontrado${projs.length!==1?"s":""}</div></div>
+    <button class="btn btn-primary" data-action="novo-projeto">${I.plus} Novo Projeto</button>
+  </div>
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-pad" style="padding:12px 16px">
+      <div class="filters">
+        <div class="sw"><span class="sw-ic">${I.srch}</span><input class="inp" placeholder="Buscar projeto ou proponente..." data-bind="projSearch" value="${esc(S.projSearch)}" style="width:280px"></div>
+        <select class="sel" data-bind="rcEquipe" style="width:190px"><option value="">Todas as equipes</option>${EQUIPES.map(e=>`<option value="${e}"${S.rcEquipe===e?" selected":""}>${e}</option>`).join("")}</select>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    ${projs.length===0?emptyState("Nenhum projeto cadastrado. Clique em \"Novo Projeto\" para começar."):`
+    <div class="ov"><table>
+      <thead><tr><th>Equipe</th><th>Proponente</th><th>Nome do projeto</th><th>Lei</th><th>Início</th><th>Fim</th><th>Prorrogação</th><th>Status</th><th>Patrocinadores</th><th></th></tr></thead>
+      <tbody>${projs.map(p=>{
+        const vins=vinculosDeProjeto(p.id);
+        const dr=dias(p);
+        const prazoLabel=dr>=0&&dr<=30&&!["Encerrado","Expirado","Negado"].includes(p.status)?`<span class="prazo-r" style="margin-left:4px">${dr}d</span>`:
+          dr>30&&dr<=60&&!["Encerrado","Expirado","Negado"].includes(p.status)?`<span class="prazo-y" style="margin-left:4px">${dr}d</span>`:"";
+        return`<tr>
+          <td style="font-size:12px;white-space:nowrap">${esc(p.equipe_pc||"—")}</td>
+          <td style="font-size:12px">${esc(getProp(p.proponente_id))}</td>
+          <td><span style="font-weight:600;color:var(--text)">${esc(p.nome)}</span></td>
+          <td style="font-size:11px;color:var(--text3)">${esc(p.lei||"—")}</td>
+          <td style="font-size:12px">${fmtD(p.data_inicio)}</td>
+          <td style="font-size:12px">${fmtD(p.data_fim)}${prazoLabel}</td>
+          <td style="font-size:12px">${fmtD(p.data_prorrogacao)}</td>
+          <td>${bdg(p.status)}</td>
+          <td>${vins.length?vins.map(v=>`<span class="tag-pat">${esc(patEmpresa(v))}</span>`).join(""):`<span style="font-size:11px;color:var(--text4)">Nenhum</span>`}</td>
+          <td><div style="display:flex;gap:4px">
+            <button class="btn btn-ghost btn-sm btn-icon" data-action="ver-projeto" data-id="${p.id}">${I.eye}</button>
+            <button class="btn btn-ghost btn-sm btn-icon" data-action="edit-projeto" data-id="${p.id}">${I.edit}</button>
+            <button class="btn btn-ghost btn-sm btn-icon" data-action="add-patrocinador-projeto" data-id="${p.id}" title="Vincular patrocinador" style="color:var(--accent)">${I.plus}</button>
+          </div></td>
+        </tr>`;
+      }).join("")}</tbody>
+    </table></div>`}
+  </div>`;
+}
+
+/* ═══════════════════════════════════════
+   PROJETOS — PROPONENTES
+═══════════════════════════════════════ */
+function pgProponentes(){
+  return`
+  <div class="ph">
+    <div><div class="pt">Proponentes</div><div class="ps">${S.proponentes.length} proponente${S.proponentes.length!==1?"s":""} cadastrado${S.proponentes.length!==1?"s":""}</div></div>
+    <button class="btn btn-primary" data-action="novo-proponente">${I.plus} Novo Proponente</button>
+  </div>
+  <div class="card">
+    ${S.proponentes.length===0?emptyState("Nenhum proponente cadastrado."):`
+    <div class="ov"><table>
+      <thead><tr><th>Razão Social</th><th>CNPJ</th><th>Estado/Cidade</th><th>Nome do Contato</th><th>E-mail</th><th>Telefone</th><th>Projetos</th><th></th></tr></thead>
+      <tbody>${S.proponentes.map(p=>{
+        const qtd=S.projetos.filter(x=>x.proponente_id===p.id).length;
+        return`<tr>
+          <td style="font-weight:600">${esc(p.razao_social)}</td>
+          <td style="font-size:12px;color:var(--text3)">${esc(p.cnpj||"—")}</td>
+          <td style="font-size:12px">${esc([p.estado,p.cidade].filter(Boolean).join(" / ")||"—")}</td>
+          <td style="font-size:12px">${esc(p.nome_contato||"—")}</td>
+          <td style="font-size:12px">${esc(p.email||"—")}</td>
+          <td style="font-size:12px">${esc(p.telefone||"—")}</td>
+          <td><span class="badge bn">${qtd}</span></td>
+          <td><div style="display:flex;gap:4px">
+            <button class="btn btn-ghost btn-sm btn-icon" data-action="edit-proponente" data-id="${p.id}">${I.edit}</button>
+            <button class="btn btn-ghost btn-sm btn-icon" style="color:var(--red)" data-action="del-proponente" data-id="${p.id}">${I.trash}</button>
+          </div></td>
+        </tr>`;
+      }).join("")}</tbody>
+    </table></div>`}
+  </div>`;
+}
+
+/* ═══════════════════════════════════════
+   PROJETOS — PATROCINADORES
+═══════════════════════════════════════ */
+function pgPatrocinadores(){
+  return`
+  <div class="ph">
+    <div><div class="pt">Patrocinadores</div><div class="ps">Cadastro global — ${S.patrocinadores.length} patrocinador${S.patrocinadores.length!==1?"es":""} cadastrado${S.patrocinadores.length!==1?"s":""}</div></div>
+    <button class="btn btn-primary" data-action="novo-patrocinador">${I.plus} Novo Patrocinador</button>
+  </div>
+  <div class="card">
+    ${S.patrocinadores.length===0?emptyState("Nenhum patrocinador cadastrado. Crie o cadastro global e depois vincule aos projetos."):`
+    <div class="ov"><table>
+      <thead><tr><th>Empresa</th><th>CNPJ</th><th>Nome do Contato</th><th>E-mail</th><th>Telefone</th><th>Projetos vinculados</th><th></th></tr></thead>
+      <tbody>${S.patrocinadores.map(p=>{
+        const vins=S.patVinculos.filter(v=>v.patrocinador_id===p.id);
+        return`<tr>
+          <td style="font-weight:600">${esc(p.empresa)}</td>
+          <td style="font-size:12px;color:var(--text3)">${esc(p.cnpj||"—")}</td>
+          <td style="font-size:12px">${esc(p.nome_contato||"—")}</td>
+          <td style="font-size:12px">${esc(p.email||"—")}</td>
+          <td style="font-size:12px">${esc(p.telefone||"—")}</td>
+          <td>${vins.length?vins.map(v=>`<span class="badge bn" style="margin:1px">${esc(getProj(v.projeto_id))}</span>`).join(""):`<span style="font-size:11px;color:var(--text4)">Nenhum</span>`}</td>
+          <td><div style="display:flex;gap:4px">
+            <button class="btn btn-ghost btn-sm btn-icon" data-action="edit-patrocinador" data-id="${p.id}">${I.edit}</button>
+            <button class="btn btn-ghost btn-sm btn-icon" style="color:var(--red)" data-action="del-patrocinador" data-id="${p.id}">${I.trash}</button>
+          </div></td>
+        </tr>`;
+      }).join("")}</tbody>
+    </table></div>`}
+  </div>`;
+}
+
+/* ═══════════════════════════════════════
+   PC — REGISTROS
+═══════════════════════════════════════ */
+function pgPC(){
+  let rows=S.pc.map(r=>({...r,_p:getProjObj(r.projeto_id)}));
+  if(S.pcSearch){const s=S.pcSearch.toLowerCase();rows=rows.filter(r=>r._p&&(r._p.nome.toLowerCase().includes(s)||getProp(r._p.proponente_id).toLowerCase().includes(s)));}
+  const pct=r=>r.valor_projeto&&r.valor_captado?((r.valor_captado/r.valor_projeto)*100).toFixed(1):null;
+  return`
+  <div class="ph">
+    <div><div class="pt">Prestação de Contas</div></div>
+    <button class="btn btn-primary" data-action="novo-pc">${I.plus} Novo Registro</button>
+  </div>
+  <div class="krow krow-4">
+    ${kcard("Total em PC",S.pc.length,"var(--accent)")}
+    ${kcard("ATO Iniciados",S.pc.filter(p=>p.status_ato==="Iniciou").length,"var(--green)")}
+    ${kcard("Plano 100% Aprovado",S.pc.filter(p=>p.status_plano_divulgacao==="100% Aprovado").length,"var(--teal)")}
+    ${kcard("Patrocínio Pendente",S.pc.filter(p=>p.confirmacao_patrocinio==="Pendente").length,"var(--amber)")}
+  </div>
+  <div class="card" style="margin-bottom:16px"><div class="card-pad" style="padding:10px 16px">
+    <div class="sw"><span class="sw-ic">${I.srch}</span><input class="inp" placeholder="Buscar..." data-bind="pcSearch" value="${esc(S.pcSearch)}" style="width:280px"></div>
+  </div></div>
+  <div class="card">
+    ${rows.length===0?emptyState("Nenhum registro de Prestação de Contas."):`
+    <div class="ov"><table>
+      <thead><tr><th>Proponente</th><th>Projeto</th><th>Status ATO</th><th>Plano Divulgação</th><th>Confirmação</th><th>Obs. Confirmação</th><th>Mês Início</th><th>V. Projeto</th><th>V. Captado</th><th>%</th><th></th></tr></thead>
+      <tbody>${rows.map(r=>{const pv=pct(r);return`<tr>
+        <td style="font-size:12px">${esc(r._p?getProp(r._p.proponente_id):"—")}</td>
+        <td style="font-weight:600">${esc(r._p?r._p.nome:"—")}</td>
+        <td>${bdg(r.status_ato||"—")}</td>
+        <td>${bdg(r.status_plano_divulgacao||"—")}</td>
+        <td>${bdg(r.confirmacao_patrocinio||"Pendente")}</td>
+        <td style="font-size:12px;max-width:140px;color:var(--text3)">${esc(r.obs_confirmacao||"—")}</td>
+        <td style="font-size:12px">${esc(r.mes_inicio||"—")}</td>
+        <td style="font-size:12px;white-space:nowrap">${fmtBRL(r.valor_projeto)}</td>
+        <td style="font-size:12px;white-space:nowrap">${fmtBRL(r.valor_captado)}</td>
+        <td>${pv?bdg(pv+"%",parseFloat(pv)<20?"br":parseFloat(pv)<50?"by":"bg"):"—"}</td>
+        <td><div style="display:flex;gap:4px">
+          <button class="btn btn-ghost btn-sm btn-icon" data-action="edit-pc" data-id="${r.id}">${I.edit}</button>
+          <button class="btn btn-ghost btn-sm btn-icon" style="color:var(--red)" data-action="del-pc" data-id="${r.id}">${I.trash}</button>
+        </div></td>
+      </tr>`;}).join("")}</tbody>
+    </table></div>`}
+  </div>`;
+}
+
+/* ═══════════════════════════════════════
+   PC — PRAZOS
+═══════════════════════════════════════ */
+function pgPrazos(){
+  const rows=S.pc.filter(r=>r.prazo_envio||r.prazo_aditivo||r.prazo_sem_aditivo);
+  return`
+  <div class="ph">
+    <div><div class="pt">Prazos — Projetos em Execução</div><div class="ps">Prazos com código de cores: vermelho · amarelo · verde</div></div>
+    <button class="btn btn-primary" data-action="novo-pc">${I.plus} Adicionar Prazo</button>
+  </div>
+  <div class="card">
+    ${rows.length===0?emptyState("Nenhum prazo cadastrado. Cadastre registros de PC com prazos preenchidos."):`
+    <div class="ov"><table>
+      <thead><tr><th style="width:40px">Nº</th><th>Projeto</th><th>Proponente</th><th><span class="prazo-r">Prazo para envio</span></th><th><span class="prazo-y">Prazo aditivo</span></th><th><span class="prazo-g">Prazo sem aditivo</span></th><th>Equipe</th><th></th></tr></thead>
+      <tbody>${rows.map((r,i)=>{
+        const p=getProjObj(r.projeto_id);
+        const dE=r.prazo_envio?Math.ceil((new Date(r.prazo_envio+"T12:00:00")-new Date())/864e5):null;
+        const dA=r.prazo_aditivo?Math.ceil((new Date(r.prazo_aditivo+"T12:00:00")-new Date())/864e5):null;
+        const dS=r.prazo_sem_aditivo?Math.ceil((new Date(r.prazo_sem_aditivo+"T12:00:00")-new Date())/864e5):null;
+        return`<tr>
+          <td style="text-align:center;font-weight:600;color:var(--text3)">${i+1}</td>
+          <td style="font-weight:600">${esc(p?p.nome:"—")}</td>
+          <td style="font-size:12px">${esc(p?getProp(p.proponente_id):"—")}</td>
+          <td>${r.prazo_envio?`<span class="prazo-r">${fmtD(r.prazo_envio)}</span>${dE!==null?` <span style="font-size:11px;color:var(--red)">(${dE}d)</span>`:""}`:span3("—")}</td>
+          <td>${r.prazo_aditivo?`<span class="prazo-y">${fmtD(r.prazo_aditivo)}</span>${dA!==null?` <span style="font-size:11px;color:var(--amber)">(${dA}d)</span>`:""}`:span3("—")}</td>
+          <td>${r.prazo_sem_aditivo?`<span class="prazo-g">${fmtD(r.prazo_sem_aditivo)}</span>${dS!==null?` <span style="font-size:11px;color:var(--green)">(${dS}d)</span>`:""}`:span3("—")}</td>
+          <td style="font-size:12px">${esc(p?p.equipe_pc||"—":"—")}</td>
+          <td><button class="btn btn-ghost btn-sm btn-icon" data-action="edit-pc" data-id="${r.id}">${I.edit}</button></td>
+        </tr>`;
+      }).join("")}</tbody>
+    </table></div>`}
+  </div>`;
+}
+
+const span3=t=>`<span style="color:var(--text4);font-size:12px">${t}</span>`;
+
+/* ═══════════════════════════════════════
+   ELABORAÇÃO
+═══════════════════════════════════════ */
+function pgElab(){
+  let rows=S.elaboracao.map(e=>({...e,_p:getProjObj(e.projeto_id)}));
+  if(S.elSearch){const s=S.elSearch.toLowerCase();rows=rows.filter(r=>(r._p&&r._p.nome.toLowerCase().includes(s))||(r._p&&getProp(r._p.proponente_id).toLowerCase().includes(s))||(r.numero_sli&&r.numero_sli.includes(s)));}
+  if(S.elStatus) rows=rows.filter(r=>r.status_elaboracao===S.elStatus);
+  if(S.elLei) rows=rows.filter(r=>r._p&&r._p.lei===S.elLei);
+  const pct=r=>r.valor_autorizado_captacao&&r.valor_total_captado?((r.valor_total_captado/r.valor_autorizado_captacao)*100).toFixed(1):(r.percentual_captado?String(r.percentual_captado):null);
+  return`
+  <div class="ph">
+    <div><div class="pt">Elaboração de Projetos</div><div class="ps">${rows.length} projeto${rows.length!==1?"s":""}</div></div>
+    <button class="btn btn-primary" data-action="nova-elaboracao">${I.plus} Novo Projeto</button>
+  </div>
+  <div class="krow krow-4">
+    ${kcard("Total",S.elaboracao.length,"var(--accent)")}
+    ${kcard("Em Análise",S.elaboracao.filter(e=>e.status_elaboracao==="Em Análise").length,"var(--amber)")}
+    ${kcard("Enviados",S.elaboracao.filter(e=>e.status_elaboracao==="Enviado"||e.status_elaboracao==="Em Análise").length,"var(--blue)")}
+    ${kcard("Em Captação",S.elaboracao.filter(e=>e.status_elaboracao==="Em Captação").length,"var(--green)")}
+  </div>
+  <div class="card" style="margin-bottom:16px"><div class="card-pad" style="padding:10px 16px">
+    <div class="filters">
+      <div class="sw"><span class="sw-ic">${I.srch}</span><input class="inp" placeholder="Buscar projeto, proponente ou SLI..." data-bind="elSearch" value="${esc(S.elSearch)}" style="width:280px"></div>
+      <select class="sel" data-bind="elStatus" style="width:170px"><option value="">Todos os status</option>${ST_ELAB.map(s=>`<option value="${s}"${S.elStatus===s?" selected":""}>${s}</option>`).join("")}</select>
+      <select class="sel" data-bind="elLei" style="width:220px"><option value="">Todas as leis</option>${LEIS.map(l=>`<option value="${l}"${S.elLei===l?" selected":""}>${l}</option>`).join("")}</select>
+    </div>
+  </div></div>
+  <div class="card">
+    ${rows.length===0?emptyState("Nenhum registro encontrado."):`
+    <div class="ov"><table>
+      <thead><tr><th>Lei</th><th>UF</th><th>Cidade</th><th>Proponente</th><th>Nome do projeto</th><th>Manifestação</th><th>N/R</th><th>P/C</th><th>SLI</th><th>Status</th><th>Envio Min.</th><th>Publ. DOU</th><th>Captação até</th><th>V. Autorizado</th><th>V. Captado</th><th>%</th><th>Faturamento</th><th>V. PC</th><th>Contato</th><th></th></tr></thead>
+      <tbody>${rows.map(r=>{const pv=pct(r);return`<tr>
+        <td style="font-size:11px">${esc(r._p?r._p.lei||"—":"—")}</td>
+        <td>${esc(r._p?r._p.estado||"—":"—")}</td>
+        <td style="font-size:12px">${esc(r._p?r._p.cidade||"—":"—")}</td>
+        <td style="font-size:12px">${esc(r._p?getProp(r._p.proponente_id):"—")}</td>
+        <td style="font-weight:600">${esc(r._p?r._p.nome:"—")}</td>
+        <td style="font-size:12px">${esc(r.manifestacao||"—")}</td>
+        <td>${bdg(r.tipo_novo_renovacao||"—","bn")}</td>
+        <td>${bdg(r.tipo_pago_cortesia||"—","bn")}</td>
+        <td style="font-weight:600;color:var(--accent)">${esc(r.numero_sli||"—")}</td>
+        <td>${bdg(r.status_elaboracao||"—")}</td>
+        <td style="font-size:12px">${fmtD(r.data_envio_ministerio)}</td>
+        <td style="font-size:12px">${fmtD(r.data_publicacao_dou)}</td>
+        <td style="font-size:12px">${fmtD(r.periodo_final_captacao)}</td>
+        <td style="font-size:12px;white-space:nowrap">${fmtBRL(r.valor_autorizado_captacao)}</td>
+        <td style="font-size:12px;white-space:nowrap">${fmtBRL(r.valor_total_captado)}</td>
+        <td>${pv?bdg(pv+"%",parseFloat(pv)<20?"br":parseFloat(pv)<50?"by":"bg"):"—"}</td>
+        <td style="font-size:12px;white-space:nowrap">${fmtBRL(r.valor_faturamento)}</td>
+        <td style="font-size:12px;white-space:nowrap">${fmtBRL(r.valor_prestacao_contas)}</td>
+        <td style="font-size:12px">${esc(r.nome_contato||"—")}</td>
+        <td><div style="display:flex;gap:4px">
+          <button class="btn btn-ghost btn-sm btn-icon" data-action="edit-elaboracao" data-id="${r.id}">${I.edit}</button>
+          <button class="btn btn-ghost btn-sm btn-icon" style="color:var(--red)" data-action="del-elaboracao" data-id="${r.id}">${I.trash}</button>
+        </div></td>
+      </tr>`;}).join("")}</tbody>
+    </table></div>`}
+  </div>`;
+}
+
+/* ═══════════════════════════════════════
+   EMPTY STATE
+═══════════════════════════════════════ */
+function emptyState(msg){
+  return`<div class="empty-state"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg><p>${msg}</p></div>`;
+}
+
+/* ═══════════════════════════════════════
+   MODAIS
+═══════════════════════════════════════ */
+function modalHtml(){
+  if(!S.modal)return"";
+  const{type,data}=S.modal;
+  const projOpts=S.proponentes.map(p=>({v:p.id,l:p.razao_social}));
+  const allProjOpts=S.projetos.map(p=>({v:p.id,l:p.nome}));
+  const patGlobOpts=S.patrocinadores.map(p=>({v:p.id,l:p.empresa}));
+
+  const f=(l,i)=>`<div><label class="lbl">${l}</label>${i}</div>`;
+  const inp=(n,v,t="text",ph="")=>`<input class="inp" name="${n}" type="${t}" value="${esc(v||"")}" placeholder="${ph}">`;
+  const selF=(n,v,opts,ph="Selecione...")=>`<select class="sel" name="${n}"><option value="">${ph}</option>${opts.map(o=>typeof o==="object"?`<option value="${esc(o.v)}"${v===o.v?" selected":""}>${esc(o.l)}</option>`:`<option value="${esc(o)}"${v===o?" selected":""}>${esc(o)}</option>`).join("")}</select>`;
+  const ta=(n,v,r=3)=>`<textarea class="ta" name="${n}" style="min-height:${r*26}px">${esc(v||"")}</textarea>`;
+  const r2=(...i)=>`<div class="frow f2">${i.join("")}</div>`;
+  const r3=(...i)=>`<div class="frow f3">${i.join("")}</div>`;
+  const r4=(...i)=>`<div class="frow f4">${i.join("")}</div>`;
+  const sh=t=>`<div class="sec-hd">${t}</div>`;
+
+  let title="", body="";
+
+  if(type==="projeto"){
+    title=data.id?"Editar Projeto":"Novo Projeto";
+    body=`
+      ${sh("Dados Gerais")}
+      ${r2(f("Nome do Projeto *",inp("nome",data.nome,"text","Nome do projeto")),f("Proponente *",selF("proponente_id",data.proponente_id,projOpts)))}
+      ${r4(f("Lei de Incentivo",selF("lei",data.lei,LEIS)),f("Ano de Início",inp("ano_inicio",data.ano_inicio,"number","2026")),f("Equipe PC",selF("equipe_pc",data.equipe_pc,EQUIPES)),f("Status",selF("status",data.status,STATUS_PROJ)))}
+      ${r3(f("Estado",selF("estado",data.estado,ESTADOS,"UF")),f("Cidade",inp("cidade",data.cidade,"text","Cidade")),f("",`<div></div>`))}
+      ${r3(f("Data de Início",inp("data_inicio",data.data_inicio,"date")),f("Data Fim",inp("data_fim",data.data_fim,"date")),f("Data de Prorrogação",inp("data_prorrogacao",data.data_prorrogacao,"date")))}
+      ${f("Observações",ta("observacoes",data.observacoes))}`;
+  }
+  else if(type==="proponente"){
+    title=data.id?"Editar Proponente":"Novo Proponente";
+    body=`
+      ${r2(f("Razão Social *",inp("razao_social",data.razao_social,"text","Nome da organização")),f("CNPJ",inp("cnpj",data.cnpj,"text","00.000.000/0001-00")))}
+      ${r3(f("Estado",selF("estado",data.estado,ESTADOS,"UF")),f("Cidade",inp("cidade",data.cidade,"text","Cidade")),f("Telefone",inp("telefone",data.telefone,"tel","(00) 00000-0000")))}
+      ${r2(f("Nome do Contato",inp("nome_contato",data.nome_contato,"text","Nome")),f("E-mail",inp("email",data.email,"email","email@exemplo.com")))}
+      ${f("Observações",ta("observacoes",data.observacoes))}`;
+  }
+  else if(type==="patrocinador"){
+    title=data.id?"Editar Patrocinador":"Novo Patrocinador";
+    body=`
+      <div style="background:var(--blueBg);border-radius:6px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:var(--blue)">Este é o cadastro global do patrocinador. Após criá-lo, vincule-o aos projetos desejados na aba Projetos.</div>
+      ${r2(f("Empresa *",inp("empresa",data.empresa,"text","Nome da empresa")),f("CNPJ",inp("cnpj",data.cnpj,"text","00.000.000/0001-00")))}
+      ${r3(f("Nome do Contato",inp("nome_contato",data.nome_contato,"text","Nome")),f("E-mail",inp("email",data.email,"email","email@...")),f("Telefone",inp("telefone",data.telefone,"tel","(00) 00000-0000")))}
+      ${f("Observações",ta("observacoes",data.observacoes))}`;
+  }
+  else if(type==="vincular-pat"){
+    const proj=getProjObj(data.projeto_id);
+    const vinsExist=vinculosDeProjeto(data.projeto_id);
+    title="Adicionar Patrocinador ao Projeto";
+    body=`
+      <div style="background:var(--surface2);border-radius:6px;padding:10px 14px;margin-bottom:20px;font-size:13px;font-weight:600">${esc(proj?proj.nome:"—")}</div>
+      <input type="hidden" name="projeto_id" value="${data.projeto_id}">
+      ${vinsExist.length>0?`<div style="margin-bottom:16px"><div class="lbl">Patrocinadores já vinculados</div><div style="display:flex;flex-wrap:wrap;gap:4px">${vinsExist.map(v=>`<span class="tag-pat">${esc(patEmpresa(v))}</span>`).join("")}</div></div>`:""}
+      ${sh("Selecionar Patrocinador")}
+      ${f("Patrocinador *",selF("patrocinador_id",data.patrocinador_id||"",patGlobOpts,"— Selecione um patrocinador cadastrado —"))}
+      <div style="font-size:12px;color:var(--text3);margin:8px 0">Não encontrou? <span style="color:var(--accent);cursor:pointer" data-action="novo-patrocinador">Cadastre um novo patrocinador</span> primeiro.</div>
+      ${sh("Dados do Vínculo")}
+      ${r2(f("Tipo de Incentivo",selF("tipo_incentivo",data.tipo_incentivo,TIPO_INC)),f("Contrato/Minuta",selF("tipo_contrato",data.tipo_contrato,TIPO_CONTR)))}
+      ${r2(f("Tipo de Monitoramento",selF("tipo_monitoramento",data.tipo_monitoramento,TIPO_MON)),f("Valor do Patrocínio (R$)",inp("valor_patrocinio",data.valor_patrocinio,"number","")))}
+      ${r3(f("Link de Monitoramento",inp("link_monitoramento",data.link_monitoramento,"url","https://")),f("Login",inp("login_monitoramento",data.login_monitoramento,"text","Login")),f("Senha",inp("senha_monitoramento",data.senha_monitoramento,"password","••••")))}`;
+  }
+  else if(type==="relatorio"){
+    title=data.id?"Editar Relatório":"Novo Relatório de Acompanhamento";
+    body=`
+      ${r3(f("Projeto *",selF("projeto_id",data.projeto_id,allProjOpts)),f("Nº do Relatório",inp("numero_relatorio",data.numero_relatorio,"number","1")),f("Status",selF("status",data.status||"Previsto",ST_REL)))}
+      ${r3(f("Meses de Referência",inp("mes_referencia",data.mes_referencia,"text","ex: Jan, Fev e Mar")),f("Data Prevista de Envio",inp("data_prevista_envio",data.data_prevista_envio,"date")),f("Data de Envio",inp("data_envio",data.data_envio,"date")))}
+      ${f("Observações",ta("observacoes",data.observacoes))}`;
+  }
+  else if(type==="contrapartida"){
+    // Patrocinadores vinculados ao projeto selecionado
+    const projId=data.projeto_id;
+    const vinsProj=projId?vinculosDeProjeto(projId):[];
+    const patVinOpts=vinsProj.map(v=>({v:v.id,l:patEmpresa(v)}));
+    title=data.id?"Editar Contrapartida":"Nova Contrapartida";
+    body=`
+      ${r2(f("Projeto *",`<select class="sel" name="projeto_id" id="ct_proj"><option value="">Selecione...</option>${allProjOpts.map(o=>`<option value="${esc(o.v)}"${projId===o.v?" selected":""}>${esc(o.l)}</option>`).join("")}</select>`),f("Status",selF("status",data.status||"Aguardando",ST_CP)))}
+      ${f("Descrição *",inp("descricao",data.descricao,"text","Descrição da contrapartida"))}
+      ${r2(f("Patrocinador Associado",`<select class="sel" name="patrocinador_vinculo_id" id="ct_pat"><option value="">— Sem patrocinador específico —</option>${patVinOpts.map(o=>`<option value="${esc(o.v)}"${data.patrocinador_vinculo_id===o.v?" selected":""}>${esc(o.l)}</option>`).join("")}</select>`),f("Data Prevista",inp("data_prevista",data.data_prevista,"date")))}
+      ${f("Link do Relatório",inp("link_relatorio",data.link_relatorio,"url","https://..."))}
+      ${f("Observações",ta("observacoes",data.observacoes))}`;
+  }
+  else if(type==="reuniao"){
+    title=data.id?"Editar Reunião":"Nova Reunião de Encerramento";
+    body=`
+      ${r3(f("Projeto *",selF("projeto_id",data.projeto_id,allProjOpts)),f("Nome do Contato",inp("nome_contato",data.nome_contato,"text","Nome")),f("Contato (WhatsApp ou e-mail)",inp("contato",data.contato,"text","")))}
+      ${r2(f("Status",selF("status",data.status||"Agendar",ST_REUN)),f("Data e Hora do Agendamento",inp("data_agendamento",data.data_agendamento?(data.data_agendamento.includes("T")?data.data_agendamento.slice(0,16):data.data_agendamento):"","datetime-local")))}
+      ${f("Observações",ta("observacoes",data.observacoes))}`;
+  }
+  else if(type==="pc"){
+    title=data.id?"Editar Prestação de Contas":"Novo Registro — Prestação de Contas";
+    body=`
+      ${sh("Projeto")}
+      ${r2(f("Projeto *",selF("projeto_id",data.projeto_id,allProjOpts)),f("Mês de Início",selF("mes_inicio",data.mes_inicio,MESES)))}
+      ${sh("Status")}
+      ${r2(f("Status ATO",selF("status_ato",data.status_ato,ST_ATO)),f("Status Plano de Divulgação",selF("status_plano_divulgacao",data.status_plano_divulgacao,ST_PLANO)))}
+      ${r3(f("Confirmação de Patrocínio",selF("confirmacao_patrocinio",data.confirmacao_patrocinio,["OK","Pendente"])),f("Observação da Confirmação",inp("obs_confirmacao",data.obs_confirmacao,"text","Inserir manualmente")),f("",`<div></div>`))}
+      ${sh("Valores")}
+      ${r2(f("Valor do Projeto (R$)",inp("valor_projeto",data.valor_projeto,"number","")),f("Valor Captado (R$)",inp("valor_captado",data.valor_captado,"number","")))}
+      ${sh("Prazos — Projetos em Execução")}
+      ${r3(f("Prazo para Envio",inp("prazo_envio",data.prazo_envio,"date")),f("Prazo Aditivo",inp("prazo_aditivo",data.prazo_aditivo,"date")),f("Prazo sem Aditivo",inp("prazo_sem_aditivo",data.prazo_sem_aditivo,"date")))}
+      <div style="display:flex;gap:16px;font-size:11px;color:var(--text3);margin:-4px 0 14px">
+        <span><span class="prazo-r" style="margin-right:4px">■</span>Vermelho = Envio</span>
+        <span><span class="prazo-y" style="margin-right:4px">■</span>Amarelo = Aditivo</span>
+        <span><span class="prazo-g" style="margin-right:4px">■</span>Verde = Sem aditivo</span>
+      </div>
+      ${f("Observações",ta("observacoes",data.observacoes))}`;
+  }
+  else if(type==="elaboracao"){
+    const temProj=!!data.projeto_id;
+    title=data.id?"Editar — Elaboração":"Novo Projeto — Elaboração";
+    body=`
+      ${sh("Projeto")}
+      ${temProj?`
+        ${r2(f("Projeto",`<div style="padding:6px 10px;background:var(--surface2);border-radius:6px;font-size:13px;font-weight:600">${esc(getProj(data.projeto_id))}</div><input type="hidden" name="projeto_id" value="${data.projeto_id}">`),f("Proponente",`<div style="padding:6px 10px;background:var(--surface2);border-radius:6px;font-size:12px;color:var(--text3)">${esc(getProp(getProjObj(data.projeto_id)?.proponente_id))}</div>`))}
+      `:`
+        <div style="background:var(--blueBg);border-radius:6px;padding:10px 14px;margin-bottom:14px;font-size:12px;color:var(--blue)">Selecione um projeto cadastrado ou crie um novo.</div>
+        ${f("Selecionar Projeto Existente",`<select class="sel" name="projeto_id_existente"><option value="">— Selecione um projeto já cadastrado —</option>${allProjOpts.map(o=>`<option value="${esc(o.v)}">${esc(o.l)}</option>`).join("")}</select>`)}
+        <div style="text-align:center;font-size:11px;color:var(--text4);margin:10px 0;font-style:italic">— ou crie um novo projeto —</div>
+        ${r2(f("Proponente",selF("proponente_id",data.proponente_id,projOpts)),f("Nome do Projeto",inp("nome",data.nome,"text","Nome do projeto")))}
+        ${r3(f("Lei de Incentivo",selF("lei",data.lei,LEIS)),f("Estado",selF("estado",data.estado,ESTADOS,"UF")),f("Cidade",inp("cidade",data.cidade,"text","Cidade")))}
+      `}
+      ${sh("Classificação")}
+      ${r3(f("Manifestação",selF("manifestacao",data.manifestacao,MANIFESTACOES)),f("Novo / Renovação",selF("tipo_novo_renovacao",data.tipo_novo_renovacao,["Novo","Renovação"])),f("Pago / Cortesia",selF("tipo_pago_cortesia",data.tipo_pago_cortesia,["Pago","Cortesia"])))}
+      ${r2(f("Nº SLI",inp("numero_sli",data.numero_sli,"text","ex: 2600334")),f("Status",selF("status_elaboracao",data.status_elaboracao,ST_ELAB)))}
+      ${sh("Datas")}
+      ${r3(f("Envio ao Ministério",inp("data_envio_ministerio",data.data_envio_ministerio,"date")),f("Aprovação na Reunião",inp("data_aprovacao_reuniao",data.data_aprovacao_reuniao,"date")),f("Publicação no DOU",inp("data_publicacao_dou",data.data_publicacao_dou,"date")))}
+      ${r2(f("Período Final de Captação",inp("periodo_final_captacao",data.periodo_final_captacao,"date")),f("Início da Execução",inp("inicio_execucao",data.inicio_execucao,"date")))}
+      ${sh("Valores")}
+      ${r3(f("Valor Autorizado p/ Captação (R$)",inp("valor_autorizado_captacao",data.valor_autorizado_captacao,"number","")),f("Valor Total Captado (R$)",inp("valor_total_captado",data.valor_total_captado,"number","")),f("Faturamento — Valor p/ Captação (R$)",inp("valor_faturamento",data.valor_faturamento,"number","")))}
+      ${r3(f("Percentual Captado (%)",inp("percentual_captado",data.percentual_captado,"number","")),f("Valor p/ Prestação de Contas (R$)",inp("valor_prestacao_contas",data.valor_prestacao_contas,"number","")),f("",`<div></div>`))}
+      ${sh("Contato")}
+      ${r3(f("Nome do Contato",inp("nome_contato",data.nome_contato,"text","Nome")),f("E-mail",inp("email_contato",data.email_contato,"email","email@...")),f("Telefone",inp("tel_contato",data.tel_contato,"tel","(00) 00000-0000")))}
+      ${f("Observações",ta("observacoes",data.observacoes))}`;
+  }
+  else if(type==="detalhe-projeto"){
+    return detalheProjModal(data);
+  }
+
+  if(!body)return"";
+  return`<div class="modal-ov" data-close="true"><div class="modal-box">
+    <div class="modal-hd">
+      <span class="modal-hd-title">${title}</span>
+      <button class="btn btn-ghost btn-sm btn-icon" data-action="close-modal">${I.x}</button>
+    </div>
+    <div class="modal-body">
+      <form id="mf">${body}<input type="hidden" name="_id" value="${data.id||""}"><input type="hidden" name="_type" value="${type}"></form>
+    </div>
+    <div class="modal-ft">
+      <button class="btn btn-ghost" data-action="close-modal">Cancelar</button>
+      <button class="btn btn-primary" data-action="save-modal">${I.save} Salvar</button>
+    </div>
+  </div></div>`;
+}
+
+function detalheProjModal(p){
+  const pats=vinculosDeProjeto(p.id);
+  const pcR=S.pc.find(x=>x.projeto_id===p.id);
+  const elR=S.elaboracao.find(x=>x.projeto_id===p.id);
+  const rw=(l,v)=>`<div style="display:flex;gap:8px;padding:7px 0;border-bottom:1px solid var(--border)"><span style="font-size:11px;font-weight:600;color:var(--text3);min-width:160px;flex-shrink:0;text-transform:uppercase;letter-spacing:.3px">${l}</span><span style="font-size:13px;color:var(--text)">${v||"—"}</span></div>`;
+  return`<div class="modal-ov" data-close="true"><div class="modal-box" style="max-width:820px">
+    <div class="modal-hd">
+      <div>
+        <div class="modal-hd-title" style="font-size:17px;margin-bottom:6px">${esc(p.nome)}</div>
+        ${bdg(p.status)}
+      </div>
+      <button class="btn btn-ghost btn-sm btn-icon" data-action="close-modal">${I.x}</button>
+    </div>
+    <div class="modal-body">
+      <div class="sec-hd">Dados Gerais</div>
+      ${rw("Proponente",esc(getProp(p.proponente_id)))}
+      ${rw("Lei de Incentivo",esc(p.lei))}
+      ${rw("Estado / Cidade",esc([p.estado,p.cidade].filter(Boolean).join(" / ")))}
+      ${rw("Equipe PC",esc(p.equipe_pc))}
+      ${rw("Data de Início",fmtD(p.data_inicio))}
+      ${rw("Data Fim",fmtD(p.data_fim))}
+      ${rw("Data de Prorrogação",fmtD(p.data_prorrogacao))}
+      ${p.observacoes?rw("Observações",esc(p.observacoes)):""}
+
+      ${pats.length>0?`
+      <div class="sec-hd" style="margin-top:20px">Patrocinadores</div>
+      <div class="ov"><table>
+        <thead><tr><th>Tipo Incentivo</th><th>Contrato/Minuta</th><th>Empresa</th><th>Contato</th><th>Tipo Monitoramento</th><th>Link</th><th>Login</th><th></th></tr></thead>
+        <tbody>${pats.map(v=>`<tr>
+          <td>${bdg(v.tipo_incentivo||"—","bn")}</td>
+          <td style="font-size:12px">${esc(v.tipo_contrato||"—")}</td>
+          <td style="font-weight:600">${esc((v.patrocinadores&&v.patrocinadores.empresa)||"—")}</td>
+          <td style="font-size:12px">${esc((v.patrocinadores&&v.patrocinadores.nome_contato)||"—")}</td>
+          <td style="font-size:12px">${esc(v.tipo_monitoramento||"—")}</td>
+          <td style="font-size:12px">${v.link_monitoramento?`<a href="${esc(v.link_monitoramento)}" target="_blank">Abrir</a>`:"—"}</td>
+          <td style="font-size:12px">${esc(v.login_monitoramento||"—")}</td>
+          <td><button class="btn btn-ghost btn-sm btn-icon" style="color:var(--red)" data-action="del-vinculo" data-id="${v.id}">${I.trash}</button></td>
+        </tr>`).join("")}</tbody>
+      </table></div>`:""}
+      <div style="margin-top:12px">
+        <button class="btn btn-ghost btn-sm" data-action="add-patrocinador-projeto" data-id="${p.id}">${I.plus} Adicionar Patrocinador</button>
+      </div>
+
+      ${pcR?`<div class="sec-hd" style="margin-top:20px">Prestação de Contas</div>
+      ${rw("Status ATO",bdg(pcR.status_ato||"—"))}
+      ${rw("Plano Divulgação",bdg(pcR.status_plano_divulgacao||"—"))}
+      ${rw("Valor do Projeto",fmtBRL(pcR.valor_projeto))}
+      ${rw("Valor Captado",fmtBRL(pcR.valor_captado))}
+      ${rw("Prazo Envio",pcR.prazo_envio?`<span class="prazo-r">${fmtD(pcR.prazo_envio)}</span>`:"—")}
+      ${rw("Prazo Aditivo",pcR.prazo_aditivo?`<span class="prazo-y">${fmtD(pcR.prazo_aditivo)}</span>`:"—")}
+      ${rw("Prazo sem Aditivo",pcR.prazo_sem_aditivo?`<span class="prazo-g">${fmtD(pcR.prazo_sem_aditivo)}</span>`:"—")}
+      `:""}
+
+      ${elR?`<div class="sec-hd" style="margin-top:20px">Elaboração</div>
+      ${rw("SLI",esc(elR.numero_sli))}
+      ${rw("Status",bdg(elR.status_elaboracao||"—"))}
+      ${rw("Manifestação",esc(elR.manifestacao))}
+      ${rw("Captação até",fmtD(elR.periodo_final_captacao))}
+      ${rw("V. Autorizado",fmtBRL(elR.valor_autorizado_captacao))}
+      ${rw("V. Captado",fmtBRL(elR.valor_total_captado))}
+      `:""}
+    </div>
+    <div class="modal-ft">
+      <button class="btn btn-ghost" data-action="close-modal">Fechar</button>
+      <button class="btn btn-primary" data-action="edit-projeto" data-id="${p.id}">${I.edit} Editar Projeto</button>
+    </div>
+  </div></div>`;
+}
+
+function toastHtml(){
+  if(!S.toast)return"";
+  const ok=S.toast.type!=="err";
+  const col=ok?"var(--green)":"var(--red)";
+  const ico=ok?I.vp:I.x;
+  return`<div class="toast"><span style="color:${col};display:flex">${ico}</span><span>${esc(S.toast.msg)}</span></div>`;
+}
+
+/* ═══════════════════════════════════════
+   BIND EVENTS
+═══════════════════════════════════════ */
+function bindAll(){
+  document.querySelectorAll("[data-nav]").forEach(e=>e.addEventListener("click",()=>{
+    const t=e.dataset.nav;
+    const subs=subnavMap[t];
+    nav(t,subs?subs[0].id:t);
+  }));
+  document.querySelectorAll("[data-sub]").forEach(e=>e.addEventListener("click",()=>{S.sub=e.dataset.sub;S.modal=null;render();}));
+  document.querySelectorAll("[data-close='true']").forEach(e=>e.addEventListener("click",ev=>{if(ev.target===e)closeModal();}));
+  document.querySelectorAll("[data-action]").forEach(e=>e.addEventListener("click",()=>handleAction(e.dataset.action,e.dataset.id)));
+  document.querySelectorAll("[data-bind]").forEach(e=>{
+    const isNum=e.dataset.numtype==="int";
+    const handler=()=>{S[e.dataset.bind]=isNum?parseInt(e.value):e.value;render();};
+    e.addEventListener("input",handler);
+    e.addEventListener("change",handler);
+  });
+  // Modal: atualizar patrocinadores ao mudar projeto (contrapartida)
+  const ctProj=document.getElementById("ct_proj");
+  if(ctProj){
+    ctProj.addEventListener("change",()=>{
+      const pid=ctProj.value;
+      const ctPat=document.getElementById("ct_pat");
+      if(!ctPat)return;
+      const vins=pid?vinculosDeProjeto(pid):[];
+      ctPat.innerHTML=`<option value="">— Sem patrocinador específico —</option>`+vins.map(v=>`<option value="${esc(v.id)}">${esc(patEmpresa(v))}</option>`).join("");
+    });
+  }
+}
+
+async function handleAction(action,id){
+  if(action==="close-modal"){closeModal();return;}
+  if(action==="novo-projeto"){openModal("projeto",{});return;}
+  if(action==="novo-proponente"){openModal("proponente",{});return;}
+  if(action==="novo-patrocinador"){openModal("patrocinador",{});return;}
+  if(action==="novo-relatorio"){openModal("relatorio",{});return;}
+  if(action==="nova-contrapartida"){openModal("contrapartida",{});return;}
+  if(action==="nova-reuniao"){openModal("reuniao",{});return;}
+  if(action==="novo-pc"){openModal("pc",{});return;}
+  if(action==="nova-elaboracao"){openModal("elaboracao",{});return;}
+  if(action==="add-patrocinador-projeto"){openModal("vincular-pat",{projeto_id:id});return;}
+
+  if(action==="ver-projeto"){const d=S.projetos.find(p=>p.id===id);if(d)openModal("detalhe-projeto",d);return;}
+  if(action==="edit-projeto"){const d=S.projetos.find(p=>p.id===id);if(d)openModal("projeto",{...d});return;}
+  if(action==="edit-proponente"){const d=S.proponentes.find(p=>p.id===id);if(d)openModal("proponente",{...d});return;}
+  if(action==="edit-patrocinador"){const d=S.patrocinadores.find(p=>p.id===id);if(d)openModal("patrocinador",{...d});return;}
+  if(action==="edit-relatorio"){const d=S.relatorios.find(r=>r.id===id);if(d)openModal("relatorio",{...d});return;}
+  if(action==="edit-contrapartida"){const d=S.contrapartidas.find(r=>r.id===id);if(d)openModal("contrapartida",{...d});return;}
+  if(action==="edit-reuniao"){const d=S.reunioes.find(r=>r.id===id);if(d)openModal("reuniao",{...d});return;}
+  if(action==="edit-pc"){const d=S.pc.find(r=>r.id===id);if(d)openModal("pc",{...d});return;}
+  if(action==="edit-elaboracao"){
+    const d=S.elaboracao.find(r=>r.id===id);
+    if(d){const p=getProjObj(d.projeto_id);openModal("elaboracao",{...d,...(p?{nome:p.nome,lei:p.lei,estado:p.estado,cidade:p.cidade,proponente_id:p.proponente_id}:{})});}
+    return;
+  }
+
+  const delActions={
+    "del-relatorio":["relatorios_acompanhamento","relatorios"],
+    "del-contrapartida":["contrapartidas","contrapartidas"],
+    "del-reuniao":["reunioes_encerramento","reunioes"],
+    "del-pc":["prestacao_contas","pc"],
+    "del-elaboracao":["elaboracao_projetos","elaboracao"],
+    "del-proponente":["proponentes","proponentes"],
+    "del-patrocinador":["patrocinadores","patrocinadores"],
+    "del-vinculo":["projeto_patrocinadores","patVinculos"],
+  };
+  if(delActions[action]){
+    if(!confirm("Confirmar exclusão?"))return;
+    const[table,key]=delActions[action];
+    try{await delRow(table,id);S[key]=S[key].filter(r=>r.id!==id);toast("Excluído com sucesso.");render();}
+    catch(e){toast("Erro: "+e.message,"err");}
+    return;
+  }
+  if(action==="save-modal"){await saveModal();return;}
+}
+
+async function saveModal(){
+  const form=document.getElementById("mf");
+  if(!form)return;
+  const fd=new FormData(form);
+  const type=fd.get("_type"),id=fd.get("_id")||undefined;
+  const g=k=>fd.get(k)||null;
+  const gn=k=>{const v=fd.get(k);return v&&v!==""?parseFloat(v):null};
+  const gi=k=>{const v=fd.get(k);return v&&v!==""?parseInt(v):null};
+  try{
+    if(type==="projeto"){
+      if(!g("nome"))return toast("Informe o nome do projeto","err");
+      const s=await upsert("projetos",{id,nome:g("nome"),proponente_id:g("proponente_id"),lei:g("lei"),ano_inicio:gi("ano_inicio"),estado:g("estado"),cidade:g("cidade"),status:g("status"),equipe_pc:g("equipe_pc"),data_inicio:g("data_inicio"),data_fim:g("data_fim"),data_prorrogacao:g("data_prorrogacao"),observacoes:g("observacoes")});
+      S.projetos=id?S.projetos.map(p=>p.id===id?s:p):[...S.projetos,s];
+      closeModal();toast(id?"Projeto atualizado!":"Projeto cadastrado!");
+    }
+    else if(type==="proponente"){
+      if(!g("razao_social"))return toast("Informe a razão social","err");
+      const s=await upsert("proponentes",{id,razao_social:g("razao_social"),cnpj:g("cnpj"),estado:g("estado"),cidade:g("cidade"),nome_contato:g("nome_contato"),email:g("email"),telefone:g("telefone"),observacoes:g("observacoes")});
+      S.proponentes=id?S.proponentes.map(p=>p.id===id?s:p):[...S.proponentes,s];
+      closeModal();toast(id?"Proponente atualizado!":"Proponente cadastrado!");
+    }
+    else if(type==="patrocinador"){
+      if(!g("empresa"))return toast("Informe o nome da empresa","err");
+      const s=await upsert("patrocinadores",{id,empresa:g("empresa"),cnpj:g("cnpj"),nome_contato:g("nome_contato"),email:g("email"),telefone:g("telefone"),observacoes:g("observacoes")});
+      S.patrocinadores=id?S.patrocinadores.map(p=>p.id===id?s:p):[...S.patrocinadores,s];
+      closeModal();toast(id?"Patrocinador atualizado!":"Patrocinador cadastrado!");
+    }
+    else if(type==="vincular-pat"){
+      const projId=g("projeto_id");
+      const patId=g("patrocinador_id");
+      if(!patId)return toast("Selecione um patrocinador","err");
+      const already=S.patVinculos.find(v=>v.projeto_id===projId&&v.patrocinador_id===patId);
+      if(already)return toast("Este patrocinador já está vinculado a este projeto","err");
+      const res=await sb.from("projeto_patrocinadores").insert({projeto_id:projId,patrocinador_id:patId,tipo_incentivo:g("tipo_incentivo"),tipo_contrato:g("tipo_contrato"),valor_patrocinio:gn("valor_patrocinio"),tipo_monitoramento:g("tipo_monitoramento"),link_monitoramento:g("link_monitoramento"),login_monitoramento:g("login_monitoramento"),senha_monitoramento:g("senha_monitoramento")}).select("*,patrocinadores(id,empresa,nome_contato,email,telefone,cnpj)").single();
+      if(res.error)throw res.error;
+      S.patVinculos=[...S.patVinculos,res.data];
+      closeModal();toast("Patrocinador vinculado!");
+    }
+    else if(type==="relatorio"){
+      if(!g("projeto_id"))return toast("Selecione o projeto","err");
+      const s=await upsert("relatorios_acompanhamento",{id,projeto_id:g("projeto_id"),numero_relatorio:gi("numero_relatorio"),mes_referencia:g("mes_referencia"),data_prevista_envio:g("data_prevista_envio"),data_envio:g("data_envio"),status:g("status")||"Previsto",observacoes:g("observacoes")});
+      S.relatorios=id?S.relatorios.map(r=>r.id===id?s:r):[...S.relatorios,s];
+      closeModal();toast("Relatório salvo!");
+    }
+    else if(type==="contrapartida"){
+      if(!g("projeto_id"))return toast("Selecione o projeto","err");
+      if(!g("descricao"))return toast("Informe a descrição","err");
+      const s=await upsert("contrapartidas",{id,projeto_id:g("projeto_id"),patrocinador_vinculo_id:g("patrocinador_vinculo_id"),descricao:g("descricao"),data_prevista:g("data_prevista"),status:g("status")||"Aguardando",link_relatorio:g("link_relatorio"),observacoes:g("observacoes")});
+      S.contrapartidas=id?S.contrapartidas.map(r=>r.id===id?s:r):[...S.contrapartidas,s];
+      closeModal();toast("Contrapartida salva!");
+    }
+    else if(type==="reuniao"){
+      if(!g("projeto_id"))return toast("Selecione o projeto","err");
+      const s=await upsert("reunioes_encerramento",{id,projeto_id:g("projeto_id"),nome_contato:g("nome_contato"),contato:g("contato"),status:g("status")||"Agendar",data_agendamento:g("data_agendamento"),observacoes:g("observacoes")});
+      S.reunioes=id?S.reunioes.map(r=>r.id===id?s:r):[...S.reunioes,s];
+      closeModal();toast("Reunião salva!");
+    }
+    else if(type==="pc"){
+      if(!g("projeto_id"))return toast("Selecione o projeto","err");
+      const existing=S.pc.find(p=>p.projeto_id===g("projeto_id")&&!id);
+      const useId=id||(existing&&existing.id)||undefined;
+      const s=await upsert("prestacao_contas",{id:useId,projeto_id:g("projeto_id"),mes_inicio:g("mes_inicio"),status_ato:g("status_ato"),status_plano_divulgacao:g("status_plano_divulgacao"),confirmacao_patrocinio:g("confirmacao_patrocinio"),obs_confirmacao:g("obs_confirmacao"),valor_projeto:gn("valor_projeto"),valor_captado:gn("valor_captado"),prazo_envio:g("prazo_envio"),prazo_aditivo:g("prazo_aditivo"),prazo_sem_aditivo:g("prazo_sem_aditivo"),observacoes:g("observacoes")});
+      S.pc=useId?S.pc.map(p=>p.id===s.id?s:p):[...S.pc,s];
+      closeModal();toast("PC salvo!");
+    }
+    else if(type==="elaboracao"){
+      let projId=g("projeto_id");
+      if(!projId){
+        const existente=g("projeto_id_existente");
+        if(existente){projId=existente;}
+        else{
+          if(!g("nome"))return toast("Informe o nome do projeto ou selecione um existente","err");
+          const pSaved=await upsert("projetos",{nome:g("nome"),proponente_id:g("proponente_id"),lei:g("lei"),estado:g("estado"),cidade:g("cidade"),status:"Em captação"});
+          S.projetos=[...S.projetos,pSaved];
+          projId=pSaved.id;
+        }
+      }
+      const s=await upsert("elaboracao_projetos",{id,projeto_id:projId,manifestacao:g("manifestacao"),tipo_novo_renovacao:g("tipo_novo_renovacao"),tipo_pago_cortesia:g("tipo_pago_cortesia"),numero_sli:g("numero_sli"),status_elaboracao:g("status_elaboracao"),data_envio_ministerio:g("data_envio_ministerio"),data_aprovacao_reuniao:g("data_aprovacao_reuniao"),data_publicacao_dou:g("data_publicacao_dou"),periodo_final_captacao:g("periodo_final_captacao"),inicio_execucao:g("inicio_execucao"),valor_autorizado_captacao:gn("valor_autorizado_captacao"),valor_total_captado:gn("valor_total_captado"),valor_faturamento:gn("valor_faturamento"),percentual_captado:gn("percentual_captado"),valor_prestacao_contas:gn("valor_prestacao_contas"),nome_contato:g("nome_contato"),email_contato:g("email_contato"),tel_contato:g("tel_contato"),observacoes:g("observacoes")});
+      S.elaboracao=id?S.elaboracao.map(e=>e.id===id?s:e):[...S.elaboracao,s];
+      closeModal();toast("Elaboração salva!");
+    }
+  }catch(e){toast("Erro: "+e.message,"err");}
+}
+
+// ── INIT ──
+render();
+loadAll();
+</script>
+</body>
+</html>
