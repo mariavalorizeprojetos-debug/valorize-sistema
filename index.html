@@ -87,7 +87,7 @@ body{font-family:'Instrument Sans',sans-serif;background:var(--bg);color:var(--t
 input,select,textarea,button{font-family:'Instrument Sans',sans-serif}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)!important;box-shadow:0 0 0 3px rgba(108,92,231,.15)!important}
 a{color:var(--accent)}
-
+ 
 /* ── LOGIN ── */
 .login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--brand2)}
 .login-bg{position:fixed;inset:0;background:linear-gradient(135deg,var(--brand2) 0%,#1a1545 50%,#0d0d26 100%);z-index:0}
@@ -105,7 +105,7 @@ a{color:var(--accent)}
 .login-btn{width:100%;height:44px;background:var(--accent);border:none;border-radius:8px;font-size:14px;font-weight:700;color:#fff;cursor:pointer;transition:.15s;margin-top:8px;letter-spacing:.2px}
 .login-btn:hover{background:var(--accent2)}
 .login-err{background:rgba(220,38,38,.15);border:1px solid rgba(220,38,38,.4);border-radius:6px;padding:10px 14px;font-size:13px;color:#fca5a5;margin-bottom:14px;display:none}
-
+ 
 /* ── TOPBAR ── */
 .topbar{height:54px;background:var(--brand2);display:flex;align-items:center;padding:0 24px;position:fixed;top:0;left:0;right:0;z-index:200;gap:0;border-bottom:1px solid rgba(255,255,255,.08)}
 .topbar-logo{display:flex;align-items:center;gap:10px;padding-right:28px;border-right:1px solid rgba(255,255,255,.12)}
@@ -120,16 +120,16 @@ a{color:var(--accent)}
 .user-pill:hover{background:rgba(255,255,255,.14)}
 .dark-toggle{width:30px;height:30px;background:rgba(255,255,255,.08);border:none;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.6);transition:.15s}
 .dark-toggle:hover{background:rgba(255,255,255,.15);color:#fff}
-
+ 
 /* ── SUBNAV ── */
 .subnav{height:42px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;gap:4px;position:fixed;top:54px;left:0;right:0;z-index:190}
 .snav{height:42px;display:flex;align-items:center;padding:0 12px;font-size:12.5px;font-weight:500;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;transition:.15s;white-space:nowrap}
 .snav:hover{color:var(--text2)}
 .snav.active{color:var(--accent);border-bottom-color:var(--accent)}
-
+ 
 /* ── MAIN ── */
 .main{margin-top:96px;padding:28px 32px;min-height:calc(100vh - 96px)}
-
+ 
 /* ── COMPONENTS ── */
 .card{background:var(--surface);border-radius:var(--r8);border:1px solid var(--border);margin-bottom:16px}
 .card-pad{padding:20px 24px}
@@ -213,7 +213,7 @@ tbody tr:hover td{background:var(--surface2)}
 .empty-state p{font-size:13px;margin-top:10px}
 .rt-dot{width:6px;height:6px;background:#22c55e;border-radius:50%;display:inline-block;animation:pulse 2s infinite;margin-right:4px}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-
+ 
 /* LOADING */
 .loading{position:fixed;inset:0;background:var(--brand2);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999}
 .loading-logo{width:52px;height:52px;background:var(--accent);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;animation:logoPop .4s ease}
@@ -223,7 +223,7 @@ tbody tr:hover td{background:var(--surface2)}
 .load-bar{width:160px;height:2px;background:rgba(255,255,255,.15);border-radius:1px;overflow:hidden}
 .load-fill{height:100%;background:var(--accent);animation:ld 1.4s ease-in-out infinite}
 @keyframes ld{0%{width:0;margin-left:0}50%{width:60%;margin-left:20%}100%{width:0;margin-left:160px}}
-
+ 
 /* VALIDATION */
 .field-wrap{position:relative}
 .field-wrap .inp.err,.field-wrap .sel.err{border-color:var(--red)!important}
@@ -236,7 +236,7 @@ tbody tr:hover td{background:var(--surface2)}
 const SB_URL="https://toyebkdzayhughixamyt.supabase.co";
 const SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRveWVia2R6YXlodWdoaXhhbXl0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzMDY1NzcsImV4cCI6MjA5MTg4MjU3N30.hBEOLMUFTmnPriGuodG-2eQkgCJK1jfOnIqJxhJhFO0";
 const sb=supabase.createClient(SB_URL,SB_KEY);
-
+ 
 /* ── USUÁRIOS POR SETOR ── */
 const USERS={
   "rc@valorize.com.br":     {senha:"rc2026",    setor:"Relacionamento",    tab:"rc"},
@@ -245,7 +245,7 @@ const USERS={
   "projetos@valorize.com.br":{senha:"proj2026", setor:"Projetos",          tab:"projetos"},
   "admin@valorize.com.br":  {senha:"admin2026", setor:"Administrador",     tab:"rc"},
 };
-
+ 
 /* ── OPÇÕES ── */
 const MESES=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
 const LEIS=["Lei de Incentivo ao Esporte","Lei de Incentivo à Cultura","Lei Audiovisual","Lei Rouanet"];
@@ -262,7 +262,7 @@ const ST_PLANO=["Trabalhando","Enviado ao Ministério","Enviado os Patrocinadore
 const ST_ELAB=["Executado","Em Execução","Vai Executar","Em Captação","Em Análise","Expirado","Negado","Sem Evolução"];
 const MANIFESTACOES=["Educacional","Participação","Rendimento","Artes Cênicas","Música","Dança","Artes Visuais","Humanidades","Audiovisual"];
 const ESTADOS=["AC","AL","AM","AP","BA","CE","DF","ES","GO","MA","MG","MS","MT","PA","PB","PE","PI","PR","RJ","RN","RO","RR","RS","SC","SE","SP","TO"];
-
+ 
 /* ── STATE ── */
 let S={
   page:"loading", tab:"rc", sub:"rc_dashboard",
@@ -274,6 +274,7 @@ let S={
   relMes:new Date().getMonth(), relAno:new Date().getFullYear(), rcEquipe:"",
   // Filtros Projetos
   projSearch:"", projStatus:"", projLei:"", projEquipe:"", projProponente:"",
+  projAno:"", projMes:"",
   // Filtros Relatórios de Acompanhamento
   relMes:new Date().getMonth(), relAno:new Date().getFullYear(),
   relSearch:"", relStatus:"",
@@ -289,13 +290,15 @@ let S={
   patSearch:"",
   // Filtros PC
   pcSearch:"", pcStatusAto:"", pcStatusPlano:"", pcConfirmacao:"",
+  pcAno:"", pcMes:"",
   // Filtros Prazos
-  prazosEquipe:"",
+  prazosEquipe:"", prazosAno:"", prazosMes:"",
   // Filtros Elaboração
   elSearch:"", elStatus:"", elLei:"", elEquipe:"", elTipo:"",
+  elAno:"", elMes:"",
   chartInst:null, realtimeCh:null,
 };
-
+ 
 /* ── HELPERS ── */
 const esc=s=>String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 const fmtD=s=>{if(!s)return"—";try{const d=new Date(s.includes("T")?s:s+"T12:00:00");if(isNaN(d))return"—";return`${String(d.getDate()).padStart(2,"0")}/${String(d.getMonth()+1).padStart(2,"0")}/${d.getFullYear()}`}catch{return"—"}};
@@ -309,7 +312,7 @@ const patEmpresa=v=>(v.patrocinadores&&v.patrocinadores.empresa)||"—";
 const inMesAno=(s,m,a)=>{if(!s)return false;const d=new Date(s.includes("T")?s:s+"T12:00:00");return d.getMonth()===m&&d.getFullYear()===a};
 const stMap={"Em execução":"bg","Em execução - prorrogação":"by","Encerrado":"br","Em captação":"bb","Em análise":"by","Vai executar":"bt","Aguardando assinatura":"bi","Expirado":"br","Negado":"br","Executado":"bg","Iniciou":"bg","Enviado":"bb","Em Diligência":"by","Diligência Respondida":"bt","Trabalhando":"bn","Sem Evolução":"bn","100% Aprovado":"bg","Enviado ao Ministério":"bb","Enviado os Patrocinadores":"bt","Aguardando":"by","Realizada":"bg","Não realizada":"br","Previsto":"bb","Em atraso":"br","Não enviado":"br","Agendar":"by","Agendada":"bb","OK":"bg","Pendente":"by","Em Captação":"bb","Em Análise":"by","Vai Executar":"bt","Expirado":"br","Negado":"br"};
 const bdg=(t,c)=>`<span class="badge ${c||stMap[t]||"bn"}">${esc(t||"—")}</span>`;
-
+ 
 /* ── HELPERS DE FILTRO ── */
 const fg=(lbl,inp,wide=false)=>`<div class="f-group${wide?" wide":""}"><label>${lbl}</label>${inp}</div>`;
 const fInp=(bind,ph,w=160)=>`<input class="inp" data-bind="${bind}" value="${esc(S[bind]||"")}" placeholder="${ph}" style="width:${w}px">`;
@@ -317,7 +320,7 @@ const fSel=(bind,opts,ph="Todos",w=160)=>`<select class="sel" data-bind="${bind}
 const fBtn=(label="Limpar")=>`<div class="f-group" style="justify-content:flex-end"><button class="btn btn-ghost btn-sm" style="margin-top:18px" data-action="clear-filters">✕ ${label}</button></div>`;
 const contaFiltros=(...keys)=>keys.filter(k=>S[k]&&S[k]!=="").length;
 const tagFiltros=n=>n>0?`<span class="filter-count">${n}</span>`:"";
-
+ 
 /* ── VALIDAÇÕES ── */
 function validarCNPJ(cnpj){
   cnpj=cnpj.replace(/[^\d]/g,"");
@@ -335,7 +338,7 @@ function validarCNPJ(cnpj){
   else{if(parseInt(cnpj[13])!==11-rem)return false;}
   return true;
 }
-
+ 
 function validarData(s){
   if(!s)return true; // vazio é ok
   const d=new Date(s+"T12:00:00");
@@ -343,11 +346,11 @@ function validarData(s){
   if(d.getFullYear()<2000||d.getFullYear()>2040)return false;
   return true;
 }
-
+ 
 function verificaDuplicidade(lista,campo,valor,idAtual){
   return lista.some(item=>item[campo]&&item[campo].trim().toLowerCase()===valor.trim().toLowerCase()&&item.id!==idAtual);
 }
-
+ 
 /* ── ICONS ── */
 const I={
   rc:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>',
@@ -366,7 +369,7 @@ const I={
   logout:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>',
   vp:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
 };
-
+ 
 /* ── SUPABASE ── */
 async function loadAll(){
   const q=async(t,sel,ord)=>{let r=sb.from(t).select(sel||"*");if(ord)r=r.order(ord);const res=await r;return res.data||[]};
@@ -380,7 +383,7 @@ async function loadAll(){
   ]);
   Object.assign(S,{projetos:p,proponentes:pr,patrocinadores:pat,patVinculos:pv,relatorios:rel,contrapartidas:ct,reunioes:re,pc,elaboracao:el});
 }
-
+ 
 async function upsert(table,data){
   const{id,...f}=data;
   const res=id?await sb.from(table).update(f).eq("id",id).select().single()
@@ -389,7 +392,7 @@ async function upsert(table,data){
   return res.data;
 }
 async function delRow(table,id){const r=await sb.from(table).delete().eq("id",id);if(r.error)throw r.error;}
-
+ 
 /* ── REALTIME ── */
 function setupRealtime(){
   if(S.realtimeCh)sb.removeChannel(S.realtimeCh);
@@ -404,7 +407,7 @@ function setupRealtime(){
   ch.subscribe();
   S.realtimeCh=ch;
 }
-
+ 
 async function reloadTable(t){
   const q=async(sel,ord)=>{let r=sb.from(t).select(sel||"*");if(ord)r=r.order(ord);const res=await r;return res.data||[]};
   const map={
@@ -420,7 +423,7 @@ async function reloadTable(t){
   };
   if(map[t])await map[t]();
 }
-
+ 
 /* ── DARK MODE ── */
 function toggleDark(){
   S.dark=!S.dark;
@@ -428,7 +431,7 @@ function toggleDark(){
   localStorage.setItem("vp_dark",S.dark?"1":"");
   render();
 }
-
+ 
 /* ── AUTH (local, sem Supabase Auth) ── */
 function doLogin(email,senha){
   const u=USERS[email.toLowerCase()];
@@ -442,13 +445,13 @@ function doLogout(){
   S.user=null;localStorage.removeItem("vp_user");
   S.page="login";render();
 }
-
+ 
 /* ── RENDER ── */
 function toast(msg,type="ok"){S.toast={msg,type};render();setTimeout(()=>{S.toast=null;render();},3400);}
 function nav(tab,sub){S.tab=tab;S.sub=sub||tab;S.modal=null;render();}
 function openModal(type,data={}){S.modal={type,data};render();}
 function closeModal(){S.modal=null;render();}
-
+ 
 function render(){
   document.documentElement.setAttribute("data-theme",S.dark?"dark":"");
   const app=document.getElementById("app");
@@ -465,7 +468,7 @@ function render(){
   bindAll();
   if(S.sub==="rc_dashboard")setTimeout(initChart,50);
 }
-
+ 
 /* ── LOGIN PAGE ── */
 function loginPage(){
   return`<div class="login-wrap"><div class="login-bg"></div>
@@ -485,7 +488,7 @@ function loginPage(){
     </div>
   </div></div>`;
 }
-
+ 
 function bindLogin(){
   const btn=document.getElementById("login-btn");
   const err=document.getElementById("login-err");
@@ -502,7 +505,7 @@ function bindLogin(){
   document.getElementById("li-senha")?.addEventListener("keydown",e=>{if(e.key==="Enter")tryLogin();});
   document.getElementById("li-email")?.addEventListener("keydown",e=>{if(e.key==="Enter")document.getElementById("li-senha")?.focus();});
 }
-
+ 
 /* ── TOPBAR ── */
 const subnavMap={
   rc:[{id:"rc_dashboard",l:"Dashboard"},{id:"rc_relatorios",l:"Relatórios de Acompanhamento"},{id:"rc_contrapartidas",l:"Relatórios de Contrapartidas"},{id:"rc_reunioes",l:"Reuniões de Encerramento"}],
@@ -510,7 +513,7 @@ const subnavMap={
   pc:[{id:"pc_main",l:"Registros"},{id:"pc_prazos",l:"Prazos em Execução"}],
   elab:[{id:"elab_main",l:"Projetos"}],
 };
-
+ 
 function topbar(){
   const tabs=[{id:"rc",l:"Relacionamento",ic:I.rc},{id:"projetos",l:"Projetos",ic:I.proj},{id:"pc",l:"Prestação de Contas",ic:I.pc},{id:"elab",l:"Elaboração",ic:I.elab}];
   return`<div class="topbar">
@@ -528,12 +531,12 @@ function topbar(){
     </div>
   </div>`;
 }
-
+ 
 function subnav(){
   const items=subnavMap[S.tab]||[];
   return`<div class="subnav">${items.map(i=>`<div class="snav${S.sub===i.id?" active":""}" data-sub="${i.id}">${i.l}</div>`).join("")}</div>`;
 }
-
+ 
 function page(){
   if(S.sub==="rc_dashboard")     return pgRcDash();
   if(S.sub==="rc_relatorios")    return pgRcRel();
@@ -547,7 +550,7 @@ function page(){
   if(S.sub==="elab_main")        return pgElab();
   return pgRcDash();
 }
-
+ 
 /* helpers form */
 const f=(l,i,err="")=>`<div class="field-wrap"><label class="lbl">${l}</label>${i}${err?`<span class="field-err">${err}</span>`:""}</div>`;
 const inp=(n,v,t="text",ph="",ex="")=>`<input class="inp" name="${n}" type="${t}" value="${esc(v||"")}" placeholder="${ph}" ${ex}>`;
@@ -559,7 +562,7 @@ const r4=(...i)=>`<div class="frow f4">${i.join("")}</div>`;
 const sh=t=>`<div class="sec-hd">${t}</div>`;
 const kcard=(l,v,col)=>`<div class="kcard" style="border-top-color:${col}"><div class="kcard-l">${l}</div><div class="kcard-v" style="color:${col}">${v}</div></div>`;
 const emptyState=m=>`<div class="empty-state"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".4"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg><p>${m}</p></div>`;
-
+ 
 /* ══ PAGES ══ */
 function pgRcDash(){
   const mes=S.relMes,ano=S.relAno;
@@ -611,7 +614,7 @@ function pgRcDash(){
     <div class="card-pad"><div class="chart-wrap"><canvas id="encChart"></canvas></div></div>
   </div>`;
 }
-
+ 
 function initChart(){
   const canvas=document.getElementById("encChart");if(!canvas)return;
   if(S.chartInst){S.chartInst.destroy();S.chartInst=null;}
@@ -626,11 +629,11 @@ function initChart(){
   const tickColor=isDark?"#505075":"#7B7D96";
   S.chartInst=new Chart(canvas,{type:"line",data:{labels,datasets:[{label:"Encerramentos",data,fill:true,backgroundColor:isDark?"rgba(108,92,231,.1)":"rgba(108,92,231,.06)",borderColor:"#6C5CE7",borderWidth:2,pointBackgroundColor:"#6C5CE7",pointRadius:3,tension:.4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:1,color:tickColor,font:{family:"Instrument Sans",size:11}},grid:{color:gridColor}},x:{ticks:{color:tickColor,font:{family:"Instrument Sans",size:11},maxRotation:45},grid:{display:false}}}}});
 }
-
+ 
 function tblWrap(headers,rows){
   return`<div class="ov"><table><thead><tr>${headers.map(h=>`<th>${h}</th>`).join("")}</tr></thead><tbody>${rows}</tbody></table></div>`;
 }
-
+ 
 function pgRcRel(){
   const mes=S.relMes,ano=S.relAno;
   let rMes=S.relatorios.filter(r=>inMesAno(r.data_prevista_envio,mes,ano));
@@ -670,7 +673,7 @@ function pgRcRel(){
     rAtras.map(r=>{const proj=getProjObj(r.projeto_id);const pats=proj?vinculosDeProjeto(proj.id).map(v=>`<span class="tag-pat">${esc(patEmpresa(v))}</span>`).join(""):"—";return`<tr><td style="font-size:12px">${esc(proj?getProp(proj.proponente_id):"—")}</td><td style="font-weight:600">${esc(proj?proj.nome:"—")}</td><td>${r.numero_relatorio||"—"}</td><td>${pats||"—"}</td><td>${fmtD(r.data_prevista_envio)}</td><td>${fmtD(r.data_envio)}</td><td style="font-size:12px">${esc(r.observacoes||"—")}</td><td><button class="btn btn-ghost btn-sm btn-icon" data-action="edit-relatorio" data-id="${r.id}">${I.edit}</button></td></tr>`;}).join(""))}
   </div>`:""}`;
 }
-
+ 
 function pgRcCt(){
   const mes=S.ctMes,ano=S.ctAno;
   let ctMes=S.contrapartidas.filter(c=>inMesAno(c.data_prevista,mes,ano));
@@ -704,7 +707,7 @@ function pgRcCt(){
       }).join(""))}
   </div>`;
 }
-
+ 
 function pgRcReun(){
   const mes=S.reunMes,ano=S.reunAno;
   let reun=S.reunioes.filter(r=>inMesAno(r.data_agendamento,mes,ano));
@@ -738,7 +741,7 @@ function pgRcReun(){
       }).join(""))}
   </div>`;
 }
-
+ 
 function pgProjLista(){
   let projs=S.projetos;
   if(S.projSearch){const s=S.projSearch.toLowerCase();projs=projs.filter(p=>p.nome.toLowerCase().includes(s)||getProp(p.proponente_id).toLowerCase().includes(s)||vinculosDeProjeto(p.id).some(v=>patEmpresa(v).toLowerCase().includes(s)));}
@@ -746,8 +749,11 @@ function pgProjLista(){
   if(S.projLei)    projs=projs.filter(p=>p.lei===S.projLei);
   if(S.projEquipe) projs=projs.filter(p=>p.equipe_pc===S.projEquipe);
   if(S.projProponente) projs=projs.filter(p=>p.proponente_id===S.projProponente);
-  const n=contaFiltros("projSearch","projStatus","projLei","projEquipe","projProponente");
+  if(S.projAno){const a=parseInt(S.projAno);projs=projs.filter(p=>{const d=p.data_inicio||p.data_fim;if(!d)return false;return new Date(d+"T12:00:00").getFullYear()===a;});}
+  if(S.projMes!==""){const m=parseInt(S.projMes);projs=projs.filter(p=>{const d=p.data_inicio||p.data_fim;if(!d)return false;return new Date(d+"T12:00:00").getMonth()===m;});}
+  const n=contaFiltros("projSearch","projStatus","projLei","projEquipe","projProponente","projAno","projMes");
   const propOpts=S.proponentes.map(pr=>({v:pr.id,l:pr.razao_social}));
+  const anosProj=[2022,2023,2024,2025,2026,2027,2028];
   return`
   <div class="ph">
     <div><div class="pt">Projetos${tagFiltros(n)}</div><div class="ps">${projs.length} de ${S.projetos.length} projeto${S.projetos.length!==1?"s":""}</div></div>
@@ -755,10 +761,12 @@ function pgProjLista(){
   </div>
   <div class="filter-bar">
     ${fg("Buscar",`<div class="sw"><span class="sw-ic" style="top:16px">${I.srch}</span><input class="inp" placeholder="Projeto, proponente ou patrocinador..." data-bind="projSearch" value="${esc(S.projSearch)}" style="width:255px;padding-left:30px"></div>`,true)}
-    ${fg("Status",fSel("projStatus",STATUS_PROJ,"Todos os status",165))}
-    ${fg("Lei de Incentivo",fSel("projLei",LEIS,"Todas as leis",190))}
-    ${fg("Equipe PC",fSel("projEquipe",EQUIPES,"Todas as equipes",170))}
-    ${fg("Proponente",fSel("projProponente",propOpts,"Todos",170))}
+    ${fg("Status",fSel("projStatus",STATUS_PROJ,"Todos os status",155))}
+    ${fg("Lei de Incentivo",fSel("projLei",LEIS,"Todas as leis",180))}
+    ${fg("Equipe PC",fSel("projEquipe",EQUIPES,"Todas as equipes",160))}
+    ${fg("Proponente",fSel("projProponente",propOpts,"Todos",160))}
+    ${fg("Ano",`<select class="sel" data-bind="projAno" style="width:90px"><option value="">Todos</option>${anosProj.map(a=>`<option value="${a}"${S.projAno==a?" selected":""}>${a}</option>`).join("")}</select>`)}
+    ${fg("Mês",`<select class="sel" data-bind="projMes" data-numtype="int" style="width:130px"><option value="">Todos os meses</option>${MESES.map((m,i)=>`<option value="${i}"${S.projMes===i?" selected":""}>${m}</option>`).join("")}</select>`)}
     ${n>0?fBtn():""}
   </div>
   <div class="card">
@@ -769,7 +777,7 @@ function pgProjLista(){
       }).join(""))}
   </div>`;
 }
-
+ 
 function pgProponentes(){
   let props=S.proponentes;
   if(S.propSearch){const s=S.propSearch.toLowerCase();props=props.filter(p=>p.razao_social.toLowerCase().includes(s)||(p.cnpj||"").includes(s)||(p.nome_contato||"").toLowerCase().includes(s)||(p.email||"").toLowerCase().includes(s));}
@@ -790,7 +798,7 @@ function pgProponentes(){
       }).join(""))}
   </div>`;
 }
-
+ 
 function pgPatrocinadores(){
   let pats=S.patrocinadores;
   if(S.patSearch){const s=S.patSearch.toLowerCase();pats=pats.filter(p=>p.empresa.toLowerCase().includes(s)||(p.cnpj||"").includes(s)||(p.nome_contato||"").toLowerCase().includes(s));}
@@ -809,14 +817,16 @@ function pgPatrocinadores(){
       }).join(""))}
   </div>`;
 }
-
+ 
 function pgPC(){
   let rows=S.pc.map(r=>({...r,_p:getProjObj(r.projeto_id)}));
   if(S.pcSearch){const s=S.pcSearch.toLowerCase();rows=rows.filter(r=>r._p&&(r._p.nome.toLowerCase().includes(s)||getProp(r._p.proponente_id).toLowerCase().includes(s)));}
   if(S.pcStatusAto)   rows=rows.filter(r=>r.status_ato===S.pcStatusAto);
   if(S.pcStatusPlano) rows=rows.filter(r=>r.status_plano_divulgacao===S.pcStatusPlano);
   if(S.pcConfirmacao) rows=rows.filter(r=>r.confirmacao_patrocinio===S.pcConfirmacao);
-  const n=contaFiltros("pcSearch","pcStatusAto","pcStatusPlano","pcConfirmacao");
+  if(S.pcAno){const a=parseInt(S.pcAno);rows=rows.filter(r=>{const p=r._p;if(!p)return false;const d=p.data_inicio||p.data_fim;if(!d)return false;return new Date(d+"T12:00:00").getFullYear()===a;});}
+  if(S.pcMes!==""){const m=parseInt(S.pcMes);rows=rows.filter(r=>{const p=r._p;if(!p)return false;const d=p.data_inicio||p.data_fim;if(!d)return false;return new Date(d+"T12:00:00").getMonth()===m;});}
+  const n=contaFiltros("pcSearch","pcStatusAto","pcStatusPlano","pcConfirmacao","pcAno","pcMes");
   const pct=r=>r.valor_projeto&&r.valor_captado?((r.valor_captado/r.valor_projeto)*100).toFixed(1):null;
   return`
   <div class="ph"><div><div class="pt">Prestação de Contas${tagFiltros(n)}</div></div><button class="btn btn-primary" data-action="novo-pc">${I.plus} Novo Registro</button></div>
@@ -826,6 +836,8 @@ function pgPC(){
     ${fg("Status ATO",fSel("pcStatusAto",ST_ATO,"Todos os status ATO",160))}
     ${fg("Plano Divulgação",fSel("pcStatusPlano",ST_PLANO,"Todos",170))}
     ${fg("Confirmação Pat.",fSel("pcConfirmacao",["OK","Pendente"],"Todos",130))}
+    ${fg("Ano",`<select class="sel" data-bind="pcAno" style="width:90px"><option value="">Todos</option>${[2022,2023,2024,2025,2026,2027,2028].map(a=>`<option value="${a}"${S.pcAno==a?" selected":""}>${a}</option>`).join("")}</select>`)}
+    ${fg("Mês",`<select class="sel" data-bind="pcMes" data-numtype="int" style="width:130px"><option value="">Todos os meses</option>${MESES.map((m,i)=>`<option value="${i}"${S.pcMes===i?" selected":""}>${m}</option>`).join("")}</select>`)}
     ${n>0?fBtn():""}
   </div>
   <div class="card">
@@ -834,16 +846,20 @@ function pgPC(){
       rows.map(r=>{const pv=pct(r);return`<tr><td style="font-size:12px">${esc(r._p?getProp(r._p.proponente_id):"—")}</td><td style="font-weight:600">${esc(r._p?r._p.nome:"—")}</td><td>${bdg(r.status_ato||"—")}</td><td>${bdg(r.status_plano_divulgacao||"—")}</td><td>${bdg(r.confirmacao_patrocinio||"Pendente")}</td><td style="font-size:12px;max-width:130px;color:var(--text3)">${esc(r.obs_confirmacao||"—")}</td><td style="font-size:12px">${esc(r.mes_inicio||"—")}</td><td style="font-size:12px;white-space:nowrap">${fmtBRL(r.valor_projeto)}</td><td style="font-size:12px;white-space:nowrap">${fmtBRL(r.valor_captado)}</td><td>${pv?bdg(pv+"%",parseFloat(pv)<20?"br":parseFloat(pv)<50?"by":"bg"):"—"}</td><td><div style="display:flex;gap:4px"><button class="btn btn-ghost btn-sm btn-icon" data-action="edit-pc" data-id="${r.id}">${I.edit}</button><button class="btn btn-ghost btn-sm btn-icon" style="color:var(--red)" data-action="del-pc" data-id="${r.id}">${I.trash}</button></div></td></tr>`;}).join(""))}
   </div>`;
 }
-
+ 
 function pgPrazos(){
   let rows=S.pc.filter(r=>r.prazo_envio||r.prazo_aditivo||r.prazo_sem_aditivo);
   if(S.prazosEquipe) rows=rows.filter(r=>{const p=getProjObj(r.projeto_id);return p&&p.equipe_pc===S.prazosEquipe;});
-  const n=contaFiltros("prazosEquipe");
+  if(S.prazosAno){const a=parseInt(S.prazosAno);rows=rows.filter(r=>{const d=r.prazo_envio||r.prazo_aditivo||r.prazo_sem_aditivo;if(!d)return false;return new Date(d+"T12:00:00").getFullYear()===a;});}
+  if(S.prazosMes!==""){const m=parseInt(S.prazosMes);rows=rows.filter(r=>{const d=r.prazo_envio||r.prazo_aditivo||r.prazo_sem_aditivo;if(!d)return false;return new Date(d+"T12:00:00").getMonth()===m;});}
+  const n=contaFiltros("prazosEquipe","prazosAno","prazosMes");
   const spanN=t=>`<span style="color:var(--text4);font-size:12px">${t}</span>`;
   return`
   <div class="ph"><div><div class="pt">Prazos — Projetos em Execução${tagFiltros(n)}</div><div class="ps">Cores: vermelho = envio · amarelo = aditivo · verde = sem aditivo</div></div><button class="btn btn-primary" data-action="novo-pc">${I.plus} Adicionar Prazo</button></div>
   <div class="filter-bar">
-    ${fg("Equipe",fSel("prazosEquipe",EQUIPES,"Todas as equipes",180))}
+    ${fg("Equipe",fSel("prazosEquipe",EQUIPES,"Todas as equipes",170))}
+    ${fg("Ano",`<select class="sel" data-bind="prazosAno" style="width:90px"><option value="">Todos</option>${[2022,2023,2024,2025,2026,2027,2028].map(a=>`<option value="${a}"${S.prazosAno==a?" selected":""}>${a}</option>`).join("")}</select>`)}
+    ${fg("Mês",`<select class="sel" data-bind="prazosMes" data-numtype="int" style="width:130px"><option value="">Todos os meses</option>${MESES.map((m,i)=>`<option value="${i}"${S.prazosMes===i?" selected":""}>${m}</option>`).join("")}</select>`)}
     ${n>0?fBtn():""}
   </div>
   <div class="card">
@@ -854,7 +870,7 @@ function pgPrazos(){
       }).join(""))}
   </div>`;
 }
-
+ 
 function pgElab(){
   let rows=S.elaboracao.map(e=>({...e,_p:getProjObj(e.projeto_id)}));
   if(S.elSearch){const s=S.elSearch.toLowerCase();rows=rows.filter(r=>(r._p&&r._p.nome.toLowerCase().includes(s))||(r._p&&getProp(r._p.proponente_id).toLowerCase().includes(s))||(r.numero_sli&&r.numero_sli.includes(s))||(r.nome_contato&&r.nome_contato.toLowerCase().includes(s)));}
@@ -862,7 +878,9 @@ function pgElab(){
   if(S.elLei)     rows=rows.filter(r=>r._p&&r._p.lei===S.elLei);
   if(S.elEquipe)  rows=rows.filter(r=>r._p&&r._p.equipe_pc===S.elEquipe);
   if(S.elTipo)    rows=rows.filter(r=>r.tipo_novo_renovacao===S.elTipo);
-  const n=contaFiltros("elSearch","elStatus","elLei","elEquipe","elTipo");
+  if(S.elAno){const a=parseInt(S.elAno);rows=rows.filter(r=>{const d=r.data_envio_ministerio||r.periodo_final_captacao||(r._p&&(r._p.data_inicio||r._p.data_fim));if(!d)return false;return new Date(d+"T12:00:00").getFullYear()===a;});}
+  if(S.elMes!==""){const m=parseInt(S.elMes);rows=rows.filter(r=>{const d=r.data_envio_ministerio||r.periodo_final_captacao||(r._p&&(r._p.data_inicio||r._p.data_fim));if(!d)return false;return new Date(d+"T12:00:00").getMonth()===m;});}
+  const n=contaFiltros("elSearch","elStatus","elLei","elEquipe","elTipo","elAno","elMes");
   const pct=r=>r.valor_autorizado_captacao&&r.valor_total_captado?((r.valor_total_captado/r.valor_autorizado_captacao)*100).toFixed(1):(r.percentual_captado?String(r.percentual_captado):null);
   return`
   <div class="ph"><div><div class="pt">Elaboração de Projetos${tagFiltros(n)}</div><div class="ps">${rows.length} de ${S.elaboracao.length} projeto${S.elaboracao.length!==1?"s":""}</div></div><button class="btn btn-primary" data-action="nova-elaboracao">${I.plus} Novo Projeto</button></div>
@@ -872,7 +890,9 @@ function pgElab(){
     ${fg("Status",fSel("elStatus",ST_ELAB,"Todos os status",165))}
     ${fg("Lei de Incentivo",fSel("elLei",LEIS,"Todas as leis",190))}
     ${fg("Equipe PC",fSel("elEquipe",EQUIPES,"Todas as equipes",170))}
-    ${fg("Novo / Renovação",fSel("elTipo",["Novo","Renovação"],"Todos",130))}
+    ${fg("Novo / Renovação",fSel("elTipo",["Novo","Renovação"],"Todos",120))}
+    ${fg("Ano",`<select class="sel" data-bind="elAno" style="width:90px"><option value="">Todos</option>${[2022,2023,2024,2025,2026,2027,2028].map(a=>`<option value="${a}"${S.elAno==a?" selected":""}>${a}</option>`).join("")}</select>`)}
+    ${fg("Mês",`<select class="sel" data-bind="elMes" data-numtype="int" style="width:130px"><option value="">Todos os meses</option>${MESES.map((m,i)=>`<option value="${i}"${S.elMes===i?" selected":""}>${m}</option>`).join("")}</select>`)}
     ${n>0?fBtn():""}
   </div>
   <div class="card">
@@ -882,7 +902,7 @@ function pgElab(){
       }).join(""))}
   </div>`;
 }
-
+ 
 /* ══ MODAIS ══ */
 function modalHtml(){
   if(!S.modal)return"";
@@ -891,7 +911,7 @@ function modalHtml(){
   const allProjOpts=S.projetos.map(p=>({v:p.id,l:p.nome}));
   const patGlobOpts=S.patrocinadores.map(p=>({v:p.id,l:p.empresa}));
   let title="",body="";
-
+ 
   if(type==="projeto"){
     title=data.id?"Editar Projeto":"Novo Projeto";
     body=`
@@ -1053,7 +1073,7 @@ function modalHtml(){
     <div class="modal-ft"><button class="btn btn-ghost" data-action="close-modal">Cancelar</button><button class="btn btn-primary" data-action="save-modal">${I.save} Salvar</button></div>
   </div></div>`;
 }
-
+ 
 function detalheProjModal(p){
   const pats=vinculosDeProjeto(p.id);
   const pcR=S.pc.find(x=>x.projeto_id===p.id);
@@ -1072,7 +1092,7 @@ function detalheProjModal(p){
     <div class="modal-ft"><button class="btn btn-ghost" data-action="close-modal">Fechar</button><button class="btn btn-primary" data-action="edit-projeto" data-id="${p.id}">${I.edit} Editar Projeto</button></div>
   </div></div>`;
 }
-
+ 
 function toastHtml(){
   if(!S.toast)return"";
   const ok=S.toast.type!=="err";
@@ -1080,7 +1100,7 @@ function toastHtml(){
   const ico=ok?`<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="${ok?"#16A34A":"#DC2626"}" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>`:I.x;
   return`<div class="toast"><span style="color:${col};display:flex">${ico}</span>${esc(S.toast.msg)}</div>`;
 }
-
+ 
 /* ══ BIND ══ */
 function bindAll(){
   document.querySelectorAll("[data-nav]").forEach(e=>e.addEventListener("click",()=>{const t=e.dataset.nav;nav(t,subnavMap[t]?.[0]?.id||t);}));
@@ -1136,7 +1156,7 @@ function bindAll(){
     });
   }
 }
-
+ 
 async function handleAction(action,id){
   if(action==="close-modal"){closeModal();return;}
   if(action==="toggle-dark"){toggleDark();return;}
@@ -1144,15 +1164,15 @@ async function handleAction(action,id){
   if(action==="clear-filters"){
     // Limpar filtros da página atual
     const page=S.sub;
-    if(page==="proj_lista"){S.projSearch="";S.projStatus="";S.projLei="";S.projEquipe="";S.projProponente="";}
+    if(page==="proj_lista"){S.projSearch="";S.projStatus="";S.projLei="";S.projEquipe="";S.projProponente="";S.projAno="";S.projMes="";}
     else if(page==="proj_proponentes"){S.propSearch="";S.propEstado="";}
     else if(page==="proj_patrocinadores"){S.patSearch="";}
     else if(page==="rc_relatorios"){S.relSearch="";S.relStatus="";}
     else if(page==="rc_contrapartidas"){S.ctSearch="";S.ctStatus="";}
     else if(page==="rc_reunioes"){S.reunSearch="";S.reunStatus="";}
-    else if(page==="pc_main"){S.pcSearch="";S.pcStatusAto="";S.pcStatusPlano="";S.pcConfirmacao="";}
-    else if(page==="pc_prazos"){S.prazosEquipe="";}
-    else if(page==="elab_main"){S.elSearch="";S.elStatus="";S.elLei="";S.elEquipe="";S.elTipo="";}
+    else if(page==="pc_main"){S.pcSearch="";S.pcStatusAto="";S.pcStatusPlano="";S.pcConfirmacao="";S.pcAno="";S.pcMes="";}
+    else if(page==="pc_prazos"){S.prazosEquipe="";S.prazosAno="";S.prazosMes="";}
+    else if(page==="elab_main"){S.elSearch="";S.elStatus="";S.elLei="";S.elEquipe="";S.elTipo="";S.elAno="";S.elMes="";}
     render();return;
   }
   const opens={"novo-projeto":["projeto",{}],"novo-proponente":["proponente",{}],"novo-patrocinador":["patrocinador",{}],"novo-relatorio":["relatorio",{}],"nova-contrapartida":["contrapartida",{}],"nova-reuniao":["reuniao",{}],"novo-pc":["pc",{}],"nova-elaboracao":["elaboracao",{}]};
@@ -1205,7 +1225,7 @@ async function handleAction(action,id){
   if(action==="confirmar-del-projeto"){openModal("confirmar-del-projeto",{id});return;}
   if(action==="save-modal"){await saveModal();return;}
 }
-
+ 
 async function saveModal(){
   const form=document.getElementById("mf");if(!form)return;
   const fd=new FormData(form);
@@ -1213,23 +1233,23 @@ async function saveModal(){
   const g=k=>fd.get(k)||null;
   const gn=k=>{const v=fd.get(k);return v&&v!==""?parseFloat(v):null};
   const gi=k=>{const v=fd.get(k);return v&&v!==""?parseInt(v):null};
-
+ 
   // ── VALIDAÇÕES ──
   const erros=[];
-
+ 
   // Validar datas
   ["data_inicio","data_fim","data_prorrogacao","data_prevista_envio","data_envio","data_prevista","prazo_envio","prazo_aditivo","prazo_sem_aditivo","data_envio_ministerio","data_aprovacao_reuniao","data_publicacao_dou","periodo_final_captacao","inicio_execucao"].forEach(campo=>{
     const v=g(campo);
     if(v&&!validarData(v))erros.push(`Data inválida no campo "${campo.replace(/_/g," ")}". Use um ano entre 2000 e 2040.`);
   });
   if(erros.length>0)return toast(erros[0],"err");
-
+ 
   // Validar CNPJ se preenchido
   if(type==="proponente"||type==="patrocinador"){
     const cnpj=g("cnpj");
     if(cnpj&&cnpj.replace(/[^\d]/g,"").length>0&&!validarCNPJ(cnpj))return toast("CNPJ inválido. Verifique o número digitado.","err");
   }
-
+ 
   // Verificar duplicidade
   if(type==="projeto"){
     if(!g("nome"))return toast("Informe o nome do projeto","err");
@@ -1243,7 +1263,7 @@ async function saveModal(){
     if(!g("empresa"))return toast("Informe o nome da empresa","err");
     if(verificaDuplicidade(S.patrocinadores,"empresa",g("empresa"),id))return toast(`Patrocinador "${g("empresa")}" já está cadastrado.`,"err");
   }
-
+ 
   // ── SALVAR ──
   try{
     if(type==="projeto"){
@@ -1298,7 +1318,7 @@ async function saveModal(){
     }
   }catch(e){toast("Erro: "+e.message,"err");}
 }
-
+ 
 /* ── INIT ── */
 (async()=>{
   // Restaurar dark mode
